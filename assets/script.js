@@ -14,15 +14,15 @@ function nextImage() {
 // Start the timer **only after initial random image is shown**
 let interval = setTimeout(() => {
   nextImage();
-  interval = setInterval(nextImage, 5000);
-}, 5000);
+  interval = setInterval(nextImage, 12000);
+}, 12000);
 
 // Also change on click or tap
 function userNextImage() {
   clearTimeout(interval);
   clearInterval(interval);
   nextImage();
-  interval = setInterval(nextImage, 5000);
+  interval = setInterval(nextImage, 12000);
 }
 
 document.addEventListener("click", userNextImage);
