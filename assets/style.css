@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: "Random";
-  src: url("Random.woff2") format("woff2");
+  src: url("fonts/Random.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -43,7 +43,7 @@ h1 {
   object-fit: cover; /* ensures image covers the whole area */
   object-position: center center; /* centers the image */
   opacity: 0;
-  transition: opacity 500ms ease-in-out;
+  transition: opacity 1000ms ease-in-out;
 }
 
 .background-carousel img.active {
@@ -73,7 +73,6 @@ h1 {
   text-decoration: none;
   border: 2px solid white;
   border-radius: 5px;
-  transition: background 0.3s ease;
 }
 
 .content a:hover {
