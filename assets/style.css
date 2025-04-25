@@ -1,3 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+@font-face {
+  font-family: "Random";
+  src: url("Random.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,10 +17,15 @@
 body,
 html {
   height: 100%;
-  font-family: sans-serif;
   color: white;
   overflow: hidden;
   background-color: orange; /* fallback while image loads */
+  font-family: "Noto Sans", sans-serif;
+  font-variation-settings: "wdth" 100;
+}
+
+h1 {
+  font-family: "Random";
 }
 
 .background-carousel {
