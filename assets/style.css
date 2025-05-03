@@ -43,7 +43,7 @@ h1 {
   object-fit: cover; /* ensures image covers the whole area */
   object-position: center center; /* centers the image */
   opacity: 0;
-  transition: opacity 2000ms ease-in-out;
+  transition: opacity 1000ms ease-in-out;
 }
 
 .background-carousel img.active {

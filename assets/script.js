@@ -1,4 +1,14 @@
-const images = document.querySelectorAll(".background-carousel img");
+const carousel = document.querySelector(".background-carousel");
+const images = Array.from(carousel.querySelectorAll("img"));
+
+// Shuffle images using Fisher-Yates
+for (let i = images.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [images[i], images[j]] = [images[j], images[i]];
+}
+
+// Re-append in shuffled order
+images.forEach((img) => carousel.appendChild(img));
 
 // Pick a random starting index
 let current = Math.floor(Math.random() * images.length);
@@ -11,13 +21,13 @@ function nextImage() {
   images[current].classList.add("active");
 }
 
-// Start the timer **only after initial random image is shown**
+// Start the timer
 let interval = setTimeout(() => {
   nextImage();
   interval = setInterval(nextImage, 12000);
 }, 12000);
 
-// Also change on click or tap
+// Manual change
 function userNextImage() {
   clearTimeout(interval);
   clearInterval(interval);
