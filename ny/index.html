@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tomas Halling — Map-like Pan</title>
+    <style>
+      :root {
+        --zoom: 2; /* start fully zoomed in */
+        --easing: 0.08;
+        --max-overscan: 0px;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background: #f6f6f4;
+        overflow: hidden;
+        font-family: ui-sans-serif, system-ui;
+      }
+
+      .viewport {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        user-select: none;
+        touch-action: none;
+      }
+
+      .artwork {
+        position: relative;
+        will-change: transform;
+        transform: translate3d(0, 0, 0) scale(var(--zoom));
+        transform-origin: center center;
+        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+      }
+
+      .artwork img {
+        display: block;
+        max-width: none;
+        height: auto;
+        pointer-events: none;
+      }
+
+      .hud {
+        position: fixed;
+        left: 12px;
+        bottom: 12px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(6px);
+        padding: 8px 10px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-size: 14px;
+      }
+      .hud input[type="range"] {
+        width: 140px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="viewport" id="viewport">
+      <div class="artwork" id="artwork">
+        <img id="img" alt="Tomas Halling – sketch map" src="tomas.png" />
+      </div>
+    </div>
+
+    <div class="hud" aria-hidden="false">
+      <label
+        >Zoom
+        <input id="zoom" type="range" min="1.05" max="2.0" step="0.01" value="2.0" />
+      </label>
+      <span id="coords" style="opacity: 0.7"></span>
+    </div>
+
+    <script>
+      (() => {
+        const vp = document.getElementById("viewport");
+        const art = document.getElementById("artwork");
+        const img = document.getElementById("img");
+        const zoomCtl = document.getElementById("zoom");
+        const coords = document.getElementById("coords");
+
+        let targetN = { x: 0, y: 0 };
+        let current = { x: 0, y: 0 };
+
+        function onPointerMove(e) {
+          const r = vp.getBoundingClientRect();
+          const nx = ((e.clientX - r.left) / r.width) * 2 - 1;
+          const ny = ((e.clientY - r.top) / r.height) * 2 - 1;
+          // Inverted movement for map-like feel
+          targetN.x = -nx;
+          targetN.y = -ny;
+        }
+
+        function onTouchMove(e) {
+          if (!e.touches || e.touches.length === 0) return;
+          const t = e.touches[0];
+          onPointerMove({ clientX: t.clientX, clientY: t.clientY });
+        }
+
+        function panRange() {
+          const zoom = getZoom();
+          const vpW = vp.clientWidth,
+            vpH = vp.clientHeight;
+          const imgW = img.naturalWidth * zoom;
+          const imgH = img.naturalHeight * zoom;
+          const rangeX = Math.max(0, (imgW - vpW) / 2);
+          const rangeY = Math.max(0, (imgH - vpH) / 2);
+          return { rangeX, rangeY };
+        }
+
+        function getZoom() {
+          return parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--zoom")) || 2.0;
+        }
+
+        function setZoom(v) {
+          document.documentElement.style.setProperty("--zoom", v.toFixed(2));
+        }
+
+        function tick() {
+          const { rangeX, rangeY } = panRange();
+          const targetPx = {
+            x: targetN.x * rangeX,
+            y: targetN.y * rangeY,
+          };
+          const ease = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--easing")) || 0.08;
+          current.x += (targetPx.x - current.x) * ease;
+          current.y += (targetPx.y - current.y) * ease;
+
+          art.style.transform = `translate3d(${current.x}px, ${current.y}px, 0) scale(${getZoom()})`;
+
+          coords.textContent = `${current.x | 0}px, ${current.y | 0}px`;
+
+          requestAnimationFrame(tick);
+        }
+
+        window.addEventListener("mousemove", onPointerMove, { passive: true });
+        window.addEventListener("touchmove", onTouchMove, { passive: true });
+        zoomCtl.addEventListener("input", (e) => setZoom(parseFloat(e.target.value)));
+
+        setZoom(parseFloat(zoomCtl.value));
+        requestAnimationFrame(tick);
+      })();
+    </script>
+  </body>
+</html>
