@@ -6,20 +6,17 @@
     <title>Tomas Halling — Map-like Pan</title>
     <style>
       :root {
-        --zoom: 2; /* start fully zoomed in */
+        --zoom: 2;
         --easing: 0.08;
-        --max-overscan: 0px;
       }
-
       html,
       body {
         height: 100%;
         margin: 0;
-        background: #f6f6f4;
         overflow: hidden;
+        background: #f6f6f4;
         font-family: ui-sans-serif, system-ui;
       }
-
       .viewport {
         position: fixed;
         inset: 0;
@@ -28,7 +25,6 @@
         user-select: none;
         touch-action: none;
       }
-
       .artwork {
         position: relative;
         will-change: transform;
@@ -36,30 +32,11 @@
         transform-origin: center center;
         filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
       }
-
       .artwork img {
         display: block;
         max-width: none;
         height: auto;
         pointer-events: none;
-      }
-
-      .hud {
-        position: fixed;
-        left: 12px;
-        bottom: 12px;
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(6px);
-        padding: 8px 10px;
-        border-radius: 12px;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        font-size: 14px;
-      }
-      .hud input[type="range"] {
-        width: 140px;
       }
     </style>
   </head>
@@ -70,81 +47,92 @@
       </div>
     </div>
 
-    <div class="hud" aria-hidden="false">
-      <label
-        >Zoom
-        <input id="zoom" type="range" min="1.05" max="2.0" step="0.01" value="2.0" />
-      </label>
-      <span id="coords" style="opacity: 0.7"></span>
-    </div>
-
     <script>
       (() => {
         const vp = document.getElementById("viewport");
         const art = document.getElementById("artwork");
         const img = document.getElementById("img");
-        const zoomCtl = document.getElementById("zoom");
-        const coords = document.getElementById("coords");
 
-        let targetN = { x: 0, y: 0 };
-        let current = { x: 0, y: 0 };
+        let targetN = { x: 0, y: 0 }; // normalized [-1,1]
+        let current = { x: 0, y: 0 }; // px position eased
 
-        function onPointerMove(e) {
-          const r = vp.getBoundingClientRect();
-          const nx = ((e.clientX - r.left) / r.width) * 2 - 1;
-          const ny = ((e.clientY - r.top) / r.height) * 2 - 1;
-          // Inverted movement for map-like feel
-          targetN.x = -nx;
-          targetN.y = -ny;
+        function getZoom() {
+          return parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--zoom")) || 2.0;
         }
-
-        function onTouchMove(e) {
-          if (!e.touches || e.touches.length === 0) return;
-          const t = e.touches[0];
-          onPointerMove({ clientX: t.clientX, clientY: t.clientY });
+        function setZoom(v) {
+          document.documentElement.style.setProperty("--zoom", v.toFixed(2));
         }
-
         function panRange() {
           const zoom = getZoom();
           const vpW = vp.clientWidth,
             vpH = vp.clientHeight;
-          const imgW = img.naturalWidth * zoom;
-          const imgH = img.naturalHeight * zoom;
+          const imgW = (img.naturalWidth || img.width) * zoom;
+          const imgH = (img.naturalHeight || img.height) * zoom;
           const rangeX = Math.max(0, (imgW - vpW) / 2);
           const rangeY = Math.max(0, (imgH - vpH) / 2);
           return { rangeX, rangeY };
         }
 
-        function getZoom() {
-          return parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--zoom")) || 2.0;
+        // Hover-follow (mouse only, when not dragging)
+        function hoverToTarget(e) {
+          const r = vp.getBoundingClientRect();
+          const nx = ((e.clientX - r.left) / r.width) * 2 - 1;
+          const ny = ((e.clientY - r.top) / r.height) * 2 - 1;
+          targetN.x = -nx; // invert so moving to TL reveals TL
+          targetN.y = -ny;
         }
 
-        function setZoom(v) {
-          document.documentElement.style.setProperty("--zoom", v.toFixed(2));
-        }
+        // Drag-to-pan (mouse or touch) — moves art with finger/mouse
+        let dragging = false,
+          startPx = null,
+          startTarget = null;
+        vp.addEventListener("pointerdown", (e) => {
+          dragging = true;
+          startPx = { x: e.clientX, y: e.clientY };
+          startTarget = { ...targetN };
+          vp.setPointerCapture?.(e.pointerId);
+          document.body.style.cursor = "grabbing";
+        });
+        vp.addEventListener(
+          "pointermove",
+          (e) => {
+            if (dragging) {
+              const r = vp.getBoundingClientRect();
+              const dx = ((e.clientX - startPx.x) / r.width) * 2;
+              const dy = ((e.clientY - startPx.y) / r.height) * 2;
+              targetN.x = Math.max(-1, Math.min(1, startTarget.x + dx));
+              targetN.y = Math.max(-1, Math.min(1, startTarget.y + dy));
+            } else if (e.pointerType === "mouse") {
+              hoverToTarget(e);
+            }
+          },
+          { passive: true }
+        );
+        window.addEventListener("pointerup", () => {
+          dragging = false;
+          document.body.style.cursor = "";
+        });
+
+        // Prevent page scroll when dragging on touch
+        vp.addEventListener(
+          "touchmove",
+          (e) => {
+            if (dragging) e.preventDefault();
+          },
+          { passive: false }
+        );
 
         function tick() {
           const { rangeX, rangeY } = panRange();
-          const targetPx = {
-            x: targetN.x * rangeX,
-            y: targetN.y * rangeY,
-          };
+          const targetPx = { x: targetN.x * rangeX, y: targetN.y * rangeY };
           const ease = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--easing")) || 0.08;
           current.x += (targetPx.x - current.x) * ease;
           current.y += (targetPx.y - current.y) * ease;
-
           art.style.transform = `translate3d(${current.x}px, ${current.y}px, 0) scale(${getZoom()})`;
-
-          coords.textContent = `${current.x | 0}px, ${current.y | 0}px`;
-
           requestAnimationFrame(tick);
         }
 
-        window.addEventListener("mousemove", onPointerMove, { passive: true });
-        window.addEventListener("touchmove", onTouchMove, { passive: true });
-        zoomCtl.addEventListener("input", (e) => setZoom(parseFloat(e.target.value)));
-
-        setZoom(parseFloat(zoomCtl.value));
+        setZoom(2.0); // start fully zoomed in
         requestAnimationFrame(tick);
       })();
     </script>
