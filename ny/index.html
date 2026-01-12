@@ -2,139 +2,62 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tomas Halling — Map-like Pan</title>
-    <style>
-      :root {
-        --zoom: 2;
-        --easing: 0.08;
-      }
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        overflow: hidden;
-        background: #f6f6f4;
-        font-family: ui-sans-serif, system-ui;
-      }
-      .viewport {
-        position: fixed;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        user-select: none;
-        touch-action: none;
-      }
-      .artwork {
-        position: relative;
-        will-change: transform;
-        transform: translate3d(0, 0, 0) scale(var(--zoom));
-        transform-origin: center center;
-        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
-      }
-      .artwork img {
-        display: block;
-        max-width: none;
-        height: auto;
-        pointer-events: none;
-      }
-    </style>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1" />
+    <title>Tomas Halling</title>
+    <link
+      rel="stylesheet"
+      href="style.css" />
   </head>
   <body>
-    <div class="viewport" id="viewport">
-      <div class="artwork" id="artwork">
-        <img id="img" alt="Tomas Halling – sketch map" src="tomas.png" />
+    <div
+      class="viewport"
+      id="viewport">
+      <div
+        class="artwork"
+        id="artwork">
+        <div class="artwork-item x-14 y-18 w-8 h-6">
+          <img src="../assets/svg/tomas-halling_1.svg" />
+        </div>
+        <div class="artwork-item x-3 y-2 w-5 h-8">
+          <img src="../assets/svg/tomas-halling_2.svg" />
+        </div>
+        <div class="artwork-item x-3 y-16 w-6 h-8">
+          <video
+            src="../assets/svg/tomas-halling_3.mp4"
+            loop
+            muted
+            playsinline></video>
+        </div>
+        <div class="artwork-item x-18 y-12 w-6 h-6">
+          <video
+            src="../assets/svg/tomas-halling_4.mp4"
+            loop
+            muted
+            playsinline></video>
+        </div>
+        <div class="artwork-item x-2 y-11 w-4 h-6">
+          <img src="../assets/svg/tomas-halling_5.svg" />
+        </div>
+        <div class="artwork-item x-11 y-2 w-4 h-4">
+          <img src="../assets/svg/tomas-halling_6.svg" />
+        </div>
+        <div class="artwork-item x-15 y-2 w-5 h-5">
+          <img src="../assets/svg/tomas-halling_7.svg" />
+        </div>
+        <div class="artwork-item x-20 y-4 w-4 h-6">
+          <img src="../assets/svg/tomas-halling_8.svg" />
+        </div>
+        <div class="artwork-item fixed-center x-8 y-8 w-10 h-10">
+          <img src="../assets/svg/tomas-halling_9.svg" />
+        </div>
+        <div class="artwork-item x-8 y-18 w-4 h-6">
+          <img src="../assets/svg/tomas-halling_10.svg" />
+        </div>
       </div>
     </div>
 
-    <script>
-      (() => {
-        const vp = document.getElementById("viewport");
-        const art = document.getElementById("artwork");
-        const img = document.getElementById("img");
-
-        let targetN = { x: 0, y: 0 }; // normalized [-1,1]
-        let current = { x: 0, y: 0 }; // px position eased
-
-        function getZoom() {
-          return parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--zoom")) || 2.0;
-        }
-        function setZoom(v) {
-          document.documentElement.style.setProperty("--zoom", v.toFixed(2));
-        }
-        function panRange() {
-          const zoom = getZoom();
-          const vpW = vp.clientWidth,
-            vpH = vp.clientHeight;
-          const imgW = (img.naturalWidth || img.width) * zoom;
-          const imgH = (img.naturalHeight || img.height) * zoom;
-          const rangeX = Math.max(0, (imgW - vpW) / 2);
-          const rangeY = Math.max(0, (imgH - vpH) / 2);
-          return { rangeX, rangeY };
-        }
-
-        // Hover-follow (mouse only, when not dragging)
-        function hoverToTarget(e) {
-          const r = vp.getBoundingClientRect();
-          const nx = ((e.clientX - r.left) / r.width) * 2 - 1;
-          const ny = ((e.clientY - r.top) / r.height) * 2 - 1;
-          targetN.x = -nx; // invert so moving to TL reveals TL
-          targetN.y = -ny;
-        }
-
-        // Drag-to-pan (mouse or touch) — moves art with finger/mouse
-        let dragging = false,
-          startPx = null,
-          startTarget = null;
-        vp.addEventListener("pointerdown", (e) => {
-          dragging = true;
-          startPx = { x: e.clientX, y: e.clientY };
-          startTarget = { ...targetN };
-          vp.setPointerCapture?.(e.pointerId);
-          document.body.style.cursor = "grabbing";
-        });
-        vp.addEventListener(
-          "pointermove",
-          (e) => {
-            if (dragging) {
-              const r = vp.getBoundingClientRect();
-              const dx = ((e.clientX - startPx.x) / r.width) * 2;
-              const dy = ((e.clientY - startPx.y) / r.height) * 2;
-              targetN.x = Math.max(-1, Math.min(1, startTarget.x + dx));
-              targetN.y = Math.max(-1, Math.min(1, startTarget.y + dy));
-            } else if (e.pointerType === "mouse") {
-              hoverToTarget(e);
-            }
-          },
-          { passive: true }
-        );
-        window.addEventListener("pointerup", () => {
-          dragging = false;
-          document.body.style.cursor = "";
-        });
-
-        // Prevent page scroll when dragging on touch
-        vp.addEventListener(
-          "touchmove",
-          (e) => {
-            if (dragging) e.preventDefault();
-          },
-          { passive: false }
-        );
-
-        function tick() {
-          const { rangeX, rangeY } = panRange();
-          const targetPx = { x: targetN.x * rangeX, y: targetN.y * rangeY };
-          const ease = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--easing")) || 0.08;
-          current.x += (targetPx.x - current.x) * ease;
-          current.y += (targetPx.y - current.y) * ease;
-          art.style.transform = `translate3d(${current.x}px, ${current.y}px, 0) scale(${getZoom()})`;
-          requestAnimationFrame(tick);
-        }
-
-        setZoom(2.0); // start fully zoomed in
-        requestAnimationFrame(tick);
-      })();
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
