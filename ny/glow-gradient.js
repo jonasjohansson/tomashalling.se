@@ -256,8 +256,8 @@
     patternIntensity: 1.0,
     patternContrast: 1.0,
     patternTurbulence: 0.0,
-    scaleX: 1.0,
-    scaleY: 1.0,
+    scaleX: 2.6,
+    scaleY: 2.0,
     edgeInner: 30.0,
     edgeOuter: 150.0,
     tangentFlow: 0.5,
@@ -304,12 +304,12 @@
     patternIntensity: 1.0,
     patternContrast: 1.0,
     patternTurbulence: 0.0,
-    scaleX: 1.0,
-    scaleY: 1.0,
+    scaleX: 2.6,
+    scaleY: 2.0,
   };
 
   let blendMode = "screen";
-  let globalBlur = 0.0;
+  let globalBlur = 100.0;
 
   const canvas = document.getElementById("_gg_canvas1");
   const canvas2 = document.getElementById("_gg_canvas2");
@@ -432,18 +432,18 @@
   }
 
   // Add grain params to params object
-  params.grainOpacity = 0.3;
+  params.grainOpacity = 0.05;
   params.grainScale = 1.0;
   params.grainBlend = "overlay";
-  params.globalBlur = 0.0;
+  params.globalBlur = 100.0;
   params.blendMode = blendMode;
 
   function updateGrain() {
     if (!grainOverlay) return;
     const grainOverlay2 = document.getElementById("_gg_grain_overlay");
-    grainOverlay.style.opacity = params.grainOpacity || 0.3;
+    grainOverlay.style.opacity = params.grainOpacity || 0.05;
     if (grainOverlay2) {
-      grainOverlay2.style.opacity = params.grainOpacity || 0.3;
+      grainOverlay2.style.opacity = params.grainOpacity || 0.05;
       const baseSize = 200;
       const scaledSize = baseSize / (params.grainScale || 1.0);
       grainOverlay2.style.backgroundSize = `${scaledSize}px ${scaledSize}px`;
@@ -600,6 +600,31 @@
   resizeCanvas();
   render();
 
+  // Vignette function
+  function updateVignette() {
+    const vignette = document.getElementById("vignette");
+    if (vignette) {
+      const intensity = params.vignetteIntensity || 0.4;
+      const color = params.vignetteColor || "#000000";
+      const blendMode = params.vignetteBlendMode || "normal";
+      
+      // Convert hex to rgb
+      const hex = color.replace('#', '');
+      const r = parseInt(hex.substr(0, 2), 16);
+      const g = parseInt(hex.substr(2, 2), 16);
+      const b = parseInt(hex.substr(4, 2), 16);
+      
+      vignette.style.background = `radial-gradient(ellipse at center, transparent 0%, rgba(${r}, ${g}, ${b}, ${intensity}) 100%)`;
+      vignette.style.mixBlendMode = blendMode;
+    }
+  }
+
+  // Initialize vignette
+  params.vignetteIntensity = 0.5;
+  params.vignetteColor = "#ff5900";
+  params.vignetteBlendMode = "normal";
+  updateVignette();
+
   // Expose params and functions globally for GUI
   window.GlowGradientParams = params;
   window.GlowGradientParams2 = params2;
@@ -610,6 +635,7 @@
       blendMode = mode;
       document.getElementById("_gg_canvas2").style.mixBlendMode = blendMode;
     },
+    updateVignette: updateVignette,
     render: render
   };
 })();

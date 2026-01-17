@@ -34,6 +34,21 @@ function initGUI() {
     });
   }
   
+  // Vignette
+  if (!params.vignetteIntensity) params.vignetteIntensity = 0.4;
+  if (!params.vignetteColor) params.vignetteColor = "#000000";
+  if (!params.vignetteBlendMode) params.vignetteBlendMode = "normal";
+  const vignetteFolder = globalFolder.addFolder("Vignette");
+  vignetteFolder.add(params, "vignetteIntensity", 0, 1, 0.01).name("Intensity").onChange(() => {
+    if (updateFunctions.updateVignette) updateFunctions.updateVignette();
+  });
+  vignetteFolder.addColor(params, "vignetteColor").name("Color").onChange(() => {
+    if (updateFunctions.updateVignette) updateFunctions.updateVignette();
+  });
+  vignetteFolder.add(params, "vignetteBlendMode", ["normal", "multiply", "screen", "overlay", "soft-light", "hard-light", "color-dodge", "color-burn", "darken", "lighten", "difference", "exclusion"]).name("Blend Mode").onChange(() => {
+    if (updateFunctions.updateVignette) updateFunctions.updateVignette();
+  });
+  
   if (updateFunctions.updateGrain) {
     const grainFolder = gui.addFolder("Grain");
     grainFolder.add(params, "grainOpacity", 0, 1, 0.01).name("Opacity").onChange(() => {
@@ -61,6 +76,8 @@ function initGUI() {
   positionFolder1.add(params, "positionPercentY", 0, 200, 1).name("Y %");
   
   const shapeFolder1 = layer1Folder.addFolder("Shape");
+  shapeFolder1.add(params, "scaleX", 0.25, 3.0, 0.01).name("Width");
+  shapeFolder1.add(params, "scaleY", 0.25, 3.0, 0.01).name("Height");
   shapeFolder1.add(params, "blur", 0, 200, 1).name("Blur");
   shapeFolder1.add(params, "feather", 0, 100, 1).name("Feather");
   shapeFolder1.add(params, "waveHeight", 0, 200, 1).name("Wave Height");
@@ -86,6 +103,8 @@ function initGUI() {
   positionFolder2.add(params2, "positionPercentY", 0, 200, 1).name("Y %");
   
   const shapeFolder2 = layer2Folder.addFolder("Shape");
+  shapeFolder2.add(params2, "scaleX", 0.25, 3.0, 0.01).name("Width");
+  shapeFolder2.add(params2, "scaleY", 0.25, 3.0, 0.01).name("Height");
   shapeFolder2.add(params2, "blur", 0, 200, 1).name("Blur");
   shapeFolder2.add(params2, "feather", 0, 100, 1).name("Feather");
   shapeFolder2.add(params2, "waveHeight", 0, 200, 1).name("Wave Height");
