@@ -12,6 +12,7 @@
   mix-blend-mode: multiply;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
+  padding: 20px;
 }
 
 .artwork-item:hover {
