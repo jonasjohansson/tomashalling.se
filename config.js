@@ -84,13 +84,6 @@ window.CONFIG = {
     durationRange: { min: 15, range: 20 },
   },
 
-  bloom: {
-    enabled: true,
-    blur: 18,
-    opacity: 0.35,
-    brightness: 1.4,
-  },
-
   explode: {
     particleCount: { min: 25, range: 25 },
     reformDelay: 2500,

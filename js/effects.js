@@ -87,48 +87,6 @@
   }
   requestAnimationFrame(updateDOF);
 
-  // --- Bloom layer ---
-  var BC = C.bloom;
-  if (BC.enabled) {
-    var bloomEl = document.createElement('div');
-    bloomEl.id = 'bloom-layer';
-    bloomEl.style.cssText =
-      'position:fixed;inset:0;pointer-events:none;z-index:9;' +
-      'mix-blend-mode:screen;' +
-      'filter:blur(' + BC.blur + 'px) brightness(' + BC.brightness + ');' +
-      'opacity:' + BC.opacity + ';' +
-      'background:transparent;';
-    document.getElementById('viewport').appendChild(bloomEl);
-
-    // Mirror the artwork transform into the bloom layer via a canvas snapshot
-    var bloomCanvas = document.createElement('canvas');
-    var bloomCtx = bloomCanvas.getContext('2d');
-    bloomCanvas.style.cssText = 'width:100%;height:100%;';
-    bloomEl.appendChild(bloomCanvas);
-
-    function updateBloom() {
-      var w = window.innerWidth;
-      var h = window.innerHeight;
-      if (bloomCanvas.width !== w || bloomCanvas.height !== h) {
-        bloomCanvas.width = w;
-        bloomCanvas.height = h;
-      }
-      bloomCtx.clearRect(0, 0, w, h);
-      // Draw each visible artwork item as a bright rectangle at its screen position
-      items.forEach(function (item) {
-        var rect = item.getBoundingClientRect();
-        if (rect.right < 0 || rect.bottom < 0 || rect.left > w || rect.top > h) return;
-        var img = item.querySelector('img, canvas');
-        if (!img) return;
-        try {
-          bloomCtx.drawImage(img, rect.left, rect.top, rect.width, rect.height);
-        } catch (e) { /* cross-origin or not loaded */ }
-      });
-      requestAnimationFrame(updateBloom);
-    }
-    requestAnimationFrame(updateBloom);
-  }
-
   // --- PostFX animation loop ---
   var postFXTime = 0;
   function updatePostFX() {

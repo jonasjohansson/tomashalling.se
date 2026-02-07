@@ -82,6 +82,6 @@
     requestAnimationFrame(tick);
   }
 
-  setZoom(1.3);
+  setZoom(1.0);
   requestAnimationFrame(tick);
 })();
