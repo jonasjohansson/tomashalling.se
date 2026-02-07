@@ -10,6 +10,8 @@
     var pct = total === 0 ? 100 : Math.round((loaded / total) * 100);
     loader.textContent = pct + '%';
     if (pct >= 100) {
+      window._loadComplete = true;
+      if (typeof playSound === 'function') playSound('trumpet');
       setTimeout(function () { loader.classList.add('done'); }, 200);
       setTimeout(function () { loader.remove(); }, 900);
     }

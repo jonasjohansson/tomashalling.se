@@ -8,6 +8,7 @@
     unlocked = true;
     window.removeEventListener('pointerdown', unlock);
     window.removeEventListener('keydown', unlock);
+    if (window._loadComplete) playSound('trumpet');
   }
   window.addEventListener('pointerdown', unlock);
   window.addEventListener('keydown', unlock);
