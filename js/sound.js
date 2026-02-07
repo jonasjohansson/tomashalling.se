@@ -1,25 +1,12 @@
 /* Sound system — Web Audio API synthesis */
 (function () {
   var audioCtx = null;
-  var unlocked = false;
-
-  function unlock() {
-    if (unlocked) return;
-    unlocked = true;
-    window.removeEventListener('pointerdown', unlock);
-    window.removeEventListener('keydown', unlock);
-    if (window._loadComplete) playSound('trumpet');
-  }
-  window.addEventListener('pointerdown', unlock);
-  window.addEventListener('keydown', unlock);
-
   function getAudioCtx() {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     return audioCtx;
   }
 
   window.playSound = function (type) {
-    if (!unlocked) return;
     var C = window.CONFIG.sound;
     try {
       var ctx = getAudioCtx();
