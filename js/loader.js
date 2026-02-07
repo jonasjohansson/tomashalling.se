@@ -6,10 +6,14 @@
   var total = imgs.length + vids.length;
   var loaded = 0;
 
+  var originalTitle = document.title;
+
   function update() {
     var pct = total === 0 ? 100 : Math.round((loaded / total) * 100);
     loader.textContent = pct + '%';
+    document.title = pct + '% — ' + originalTitle;
     if (pct >= 100) {
+      document.title = originalTitle;
       window._loadComplete = true;
       if (typeof playSound === 'function') playSound('trumpet');
       setTimeout(function () { loader.classList.add('done'); }, 200);
