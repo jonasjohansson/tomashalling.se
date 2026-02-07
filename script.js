@@ -101,6 +101,7 @@
   // --- 3D float & tilt effects ---
   const items = document.querySelectorAll('.artwork-item');
   const letters = document.querySelectorAll('.name-letter');
+  const centerEl = document.querySelector('.fixed-center');
 
   // Non-letter artwork items get CSS animation float
   items.forEach((item) => {
@@ -277,6 +278,59 @@
   })();
 
   // =============================================
+  //  CLICK-TO-EXPLODE — any item bursts into particles, then reforms
+  // =============================================
+  function explodeItem(item) {
+    if (item.dataset.exploding === 'true') return;
+    item.dataset.exploding = 'true';
+    playSound('explode');
+
+    const rect = item.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+
+    // Spawn particles from within the element's shape
+    const count = 25 + Math.floor(Math.random() * 25);
+    for (let i = 0; i < count; i++) {
+      const px = rect.left + Math.random() * rect.width;
+      const py = rect.top + Math.random() * rect.height;
+      const angle = Math.atan2(py - cy, px - cx) + (Math.random() - 0.5) * 0.8;
+      const spd = 2.5 + Math.random() * 5;
+      particles.push({
+        x: px, y: py,
+        vx: Math.cos(angle) * spd,
+        vy: Math.sin(angle) * spd - Math.random() * 2,
+        life: 1,
+        decay: 0.004 + Math.random() * 0.008,
+        size: 2 + Math.random() * 6,
+        color: PCOLORS[Math.floor(Math.random() * PCOLORS.length)],
+      });
+    }
+
+    // Hide the element
+    item.style.transition = 'opacity 0.12s ease';
+    item.style.opacity = '0';
+
+    // Reform after a while
+    setTimeout(() => {
+      item.style.transition = 'opacity 1s ease';
+      item.style.opacity = '1';
+      setTimeout(() => {
+        item.style.transition = '';
+        item.dataset.exploding = 'false';
+      }, 1200);
+    }, 2500);
+  }
+
+  // Attach to all artwork items (including center and letters)
+  items.forEach(item => {
+    item.addEventListener('pointerdown', (e) => {
+      e.stopPropagation();
+      explodeItem(item);
+    });
+  });
+
+  // =============================================
   //  LETTER SCRAMBLE
   // =============================================
   function triggerScramble() {
@@ -307,7 +361,6 @@
 
   const PCOLORS = ['#e36b2e','#FFE066','#87CEEB','#FF8C42','#D44226','#70B8D8','#FFF8A0'];
   const particles = [];
-  const centerEl = document.querySelector('.fixed-center');
 
   // Outlet positions as % offsets from center element's top-left
   const OUTLETS = [
@@ -528,6 +581,31 @@
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
         osc.start(now);
         osc.stop(now + 0.3);
+      } else if (type === 'explode') {
+        // Big boom — noise burst + descending tone
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(150, now);
+        osc.frequency.exponentialRampToValueAtTime(30, now + 0.8);
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.linearRampToValueAtTime(0.18, now + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+        osc.start(now);
+        osc.stop(now + 0.8);
+        // Layer a noise-like crackle on top
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
+        osc2.type = 'square';
+        osc2.frequency.setValueAtTime(80, now);
+        osc2.frequency.setValueAtTime(200, now + 0.02);
+        osc2.frequency.setValueAtTime(50, now + 0.06);
+        osc2.frequency.setValueAtTime(300, now + 0.1);
+        osc2.frequency.setValueAtTime(40, now + 0.2);
+        gain2.gain.setValueAtTime(0.12, now);
+        gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+        osc2.start(now);
+        osc2.stop(now + 0.5);
       } else if (type === 'trumpet') {
         // Airy burst — like a little trumpet puff
         osc.type = 'triangle';
@@ -542,11 +620,6 @@
     } catch (e) { /* audio not available */ }
   }
 
-  // Add click sounds to all artwork items
-  items.forEach(item => {
-    item.addEventListener('pointerdown', () => { playSound('click'); });
-  });
-
   // Circle nav: handle all navigation via JS
   // stopPropagation on pointerdown prevents viewport pan from capturing the pointer
   document.querySelectorAll('.circle-nav-link').forEach(link => {
@@ -555,12 +628,6 @@
       e.preventDefault();
       e.stopPropagation();
       playSound('click');
-      const overlayId = link.getAttribute('data-overlay');
-      if (overlayId) {
-        const overlay = document.getElementById(overlayId + '-overlay');
-        if (overlay) { overlay.classList.add('open'); overlay.removeAttribute('hidden'); }
-        return;
-      }
       const href = link.getAttribute('href');
       if (!href || href === '#') return;
       if (href.startsWith('mailto:')) {
@@ -569,20 +636,6 @@
         window.open(href, '_blank');
       }
     });
-  });
-
-  // Overlay close logic
-  document.querySelectorAll('.overlay').forEach(overlay => {
-    const backdrop = overlay.querySelector('.overlay-backdrop');
-    const closeBtn = overlay.querySelector('.overlay-close');
-    function closeOverlay() { overlay.classList.remove('open'); }
-    if (backdrop) backdrop.addEventListener('click', closeOverlay);
-    if (closeBtn) closeBtn.addEventListener('click', closeOverlay);
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.overlay.open').forEach(o => o.classList.remove('open'));
-    }
   });
 
   // =============================================

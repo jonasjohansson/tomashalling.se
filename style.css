@@ -112,7 +112,7 @@ body::after {
   z-index: 3;
   pointer-events: none;
   opacity: 0.05;
-  background-image: url('../assets/img/grain2.jpeg');
+  background-image: url('assets/img/grain2.jpeg');
   background-size: 200px 200px;
   background-repeat: repeat;
   mix-blend-mode: overlay;
@@ -136,7 +136,7 @@ body::after {
   height: 100%;
   pointer-events: none;
   opacity: 0.05;
-  background-image: url('../assets/img/grain2.jpeg');
+  background-image: url('assets/img/grain2.jpeg');
   background-size: 200px 200px;
   background-repeat: repeat;
   mix-blend-mode: overlay;
@@ -189,8 +189,8 @@ body::after {
    ============================================= */
 .circle-nav {
   position: absolute;
-  width: 72vmin;
-  height: 72vmin;
+  width: 70vmin;
+  height: 70vmin;
   top: 50%;
   left: 50%;
   translate: -50% -50%;
@@ -208,7 +208,7 @@ body::after {
 
 .circle-nav text {
   font-family: 'Monoton', cursive, fantasy;
-  font-size: 46px;
+  font-size: 72px;
   fill: #fff;
   letter-spacing: 6px;
   text-transform: uppercase;
@@ -230,101 +230,6 @@ body::after {
   to { rotate: 360deg; }
 }
 
-/* =============================================
-   Länkar Overlay
-   ============================================= */
-.overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
-}
-
-.overlay[hidden] {
-  display: flex;
-  pointer-events: none;
-}
-
-.overlay.open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.overlay-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(8, 10, 20, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.overlay-content {
-  position: relative;
-  padding: 3rem 3.5rem;
-  max-width: 520px;
-  width: 90%;
-  border: 1px solid rgba(255, 200, 120, 0.15);
-  border-radius: 12px;
-  background: rgba(20, 18, 30, 0.7);
-  transform: translateY(20px);
-  transition: transform 0.4s ease;
-}
-
-.overlay.open .overlay-content {
-  transform: translateY(0);
-}
-
-.overlay-content h2 {
-  font-family: 'Monoton', cursive, fantasy;
-  font-size: 2rem;
-  color: rgba(255, 225, 160, 0.92);
-  margin: 0 0 1.5rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-}
-
-.overlay-links {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-}
-
-.overlay-links a {
-  color: rgba(255, 210, 140, 0.85);
-  text-decoration: none;
-  font-family: ui-sans-serif, system-ui;
-  font-size: 1.1rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(255, 200, 120, 0.08);
-  transition: color 0.2s ease;
-}
-
-.overlay-links a:hover {
-  color: #fff;
-}
-
-.overlay-close {
-  position: absolute;
-  top: 1rem;
-  right: 1.2rem;
-  background: none;
-  border: none;
-  color: rgba(255, 225, 160, 0.7);
-  font-size: 2rem;
-  cursor: pointer;
-  line-height: 1;
-  transition: color 0.2s ease;
-}
-
-.overlay-close:hover {
-  color: #fff;
-}
 
 /* Viewport-level hue cycle */
 .viewport {
@@ -381,9 +286,11 @@ body::after {
   100% { transform: perspective(600px) rotateY(360deg) rotateX(0deg) scale(1); }
 }
 
-/* Name letters get their own wilder float */
+/* Name letters — absolutely positioned, scattered across the artwork */
 .name-letter {
+  position: absolute;
   animation: letterFloat var(--float-duration, 3s) ease-in-out var(--float-delay, 0s) infinite;
+  z-index: 10;
 }
 
 @keyframes float {

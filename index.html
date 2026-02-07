@@ -1,47 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1" />
     <title>Tomas Halling</title>
-    <link rel="stylesheet" href="assets/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="style.css?v=13" />
   </head>
   <body>
-    <div class="background-carousel">
-      <img src="assets/img/tomas-halling-mingua-13-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-mingua-10-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-mingua-06-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-mingua-04-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-mingua-02-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-gula-tuppen-space-elk-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-brainforest-20171231_201107-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-brainforest-5850-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-brainforest-5811-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-blurrfish-trumset-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-blurrfish-DSC08248-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-luftslottet-liverodland-foto-bo-borg-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-xgloscho-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-blurrfish-clngo-spirojo-sprinklerbasunist-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-mahatma-robot-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-2024-orangeien-akryl-100x150-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-2025-skrattande-piano-akryl-46x30-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-2025-vandrande-ballongtapet-akryl-41x33-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-arubo-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-blurrfish-clango-spirojo-upscale.jpeg" />
-      <img src="assets/img/tomas-halling-lejonhunden-karakadoschi-upscale.jpeg" />
+    <div id="_gg_stage">
+      <canvas id="_gg_canvas1"></canvas>
+      <canvas id="_gg_canvas2"></canvas>
+      <div id="_gg_grain"></div>
     </div>
-    <div class="content">
-      <h1>Tomas Halling</h1>
-      <a href="mailto:info@tomashalling.se" target="_blank">info@tomashalling.se</a>
-      <a href="https://instagram.com/tomashallingandxgloscho/" target="_blank">Instagram</a>
-      <a href="https://www.instagram.com/tomasxgloschoartgallery" target="_blank">Art Gallery</a>
-      <a href="https://www.sverigesradio.se/avsnitt/909823" target="_blank">P1 Dokumentär: Bubbelplastmannen</a>
-      <a href="https://www.youtube.com/watch?v=l-DqJYWjzfg" target="_blank">Kanal lokal Göteborg: Reportage about Tomas Halling</a>
-      <a href="https://www.youtube.com/@tomashalling" target="_blank">Youtube @tomashalling</a>
-      <a href="https://www.youtube.com/@tomashallingxgloscho" target="_blank">Youtube @tomashallingxgloscho</a>
+    <div
+      class="viewport"
+      id="viewport">
+      <div
+        class="artwork"
+        id="artwork">
+        <div class="artwork-item x-14 y-18 w-8 h-6">
+          <img src="assets/svg/tomas-halling_1.svg" />
+        </div>
+        <div class="artwork-item x-3 y-2 w-5 h-8">
+          <img src="assets/svg/tomas-halling_2.svg" />
+        </div>
+        <div class="artwork-item x-3 y-16 w-6 h-8">
+          <video
+            src="assets/svg/tomas-halling_3.mp4"
+            loop
+            muted
+            playsinline></video>
+        </div>
+        <div class="artwork-item x-18 y-12 w-6 h-6">
+          <video
+            src="assets/svg/tomas-halling_4.mp4"
+            loop
+            muted
+            playsinline></video>
+        </div>
+        <div class="artwork-item x-2 y-11 w-4 h-6">
+          <img src="assets/svg/tomas-halling_5.svg" />
+        </div>
+        <div class="artwork-item x-11 y-2 w-4 h-4">
+          <img src="assets/svg/tomas-halling_6.svg" />
+        </div>
+        <div class="artwork-item x-15 y-2 w-5 h-5">
+          <img src="assets/svg/tomas-halling_7.svg" />
+        </div>
+        <div class="artwork-item x-20 y-4 w-4 h-6">
+          <img src="assets/svg/tomas-halling_8.svg" />
+        </div>
+        <!-- T O M A S  (scattered across the page) -->
+        <div class="artwork-item name-letter" style="left:1%;top:2%;width:11%;height:13%" data-letter="t">
+          <img src="assets/svg/t.svg" />
+        </div>
+        <div class="artwork-item name-letter" style="left:18%;top:38%;width:10%;height:12%" data-letter="o">
+          <img src="assets/svg/o.svg" />
+        </div>
+        <div class="artwork-item name-letter" style="left:3%;top:62%;width:13%;height:15%" data-letter="m">
+          <img src="assets/svg/m.svg" />
+        </div>
+        <div class="artwork-item name-letter" style="left:28%;top:8%;width:10%;height:12%" data-letter="a1">
+          <img src="assets/svg/a1.svg" />
+        </div>
+        <div class="artwork-item name-letter" style="left:8%;top:80%;width:11%;height:13%" data-letter="s">
+          <img src="assets/svg/s.svg" />
+        </div>
+        <!-- H A L L I N G  (scattered across the page) -->
+        <div class="artwork-item name-letter" style="left:72%;top:5%;width:12%;height:15%" data-letter="h">
+          <img src="assets/svg/h.svg" />
+        </div>
+        <div class="artwork-item name-letter" style="left:60%;top:68%;width:11%;height:13%" data-letter="a2">
+          <img src="assets/svg/a2.svg" />
+        </div>
+        <div class="artwork-item name-letter" style="left:85%;top:32%;width:6%;height:14%" data-letter="l1">
+          <img src="assets/svg/l1.svg" />
+        </div>
+        <div class="artwork-item name-letter" style="left:42%;top:72%;width:6%;height:14%" data-letter="l2">
+          <img src="assets/svg/l2.svg" />
+        </div>
+        <div class="artwork-item name-letter" style="left:88%;top:60%;width:5%;height:11%" data-letter="i">
+          <img src="assets/svg/i.svg" />
+        </div>
+        <div class="artwork-item name-letter" style="left:55%;top:85%;width:11%;height:13%" data-letter="n">
+          <img src="assets/svg/n.svg" />
+        </div>
+        <div class="artwork-item name-letter" style="left:78%;top:78%;width:9%;height:12%" data-letter="g">
+          <img src="assets/svg/g.svg" />
+        </div>
+        <div class="artwork-item fixed-center x-8 y-8 w-10 h-10">
+          <img src="assets/svg/tomas-halling_9.svg" />
+        </div>
+        <div class="artwork-item x-10 y-17 w-4 h-6">
+          <img src="assets/svg/tomas-halling_10.svg" />
+        </div>
+      </div>
 
-      <a href="https://docs.google.com/document/d/1MMRRXbYMeeVk50FM0Pr2nPE6ce9Ow_TqRXcznx18YEA/edit?usp=sharing" target="_blank">CV</a>
+      <!-- Circular text navigation -->
+      <svg class="circle-nav" viewBox="0 0 800 800" aria-label="Navigation">
+        <defs>
+          <path id="nav-circle-path"
+            d="M 400,400 m -350,0 a 350,350 0 1,1 700,0 a 350,350 0 1,1 -700,0"
+            fill="none"/>
+          <filter id="nav-glow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <a href="mailto:info@tomashalling.se" class="circle-nav-link">
+          <text filter="url(#nav-glow)">
+            <textPath href="#nav-circle-path" startOffset="16.7%" text-anchor="middle">kontakt</textPath>
+          </text>
+        </a>
+        <a href="https://docs.google.com/document/d/1MMRRXbYMeeVk50FM0Pr2nPE6ce9Ow_TqRXcznx18YEA/export?format=pdf" class="circle-nav-link" target="_blank">
+          <text filter="url(#nav-glow)">
+            <textPath href="#nav-circle-path" startOffset="50%" text-anchor="middle">cv</textPath>
+          </text>
+        </a>
+        <a href="https://instagram.com/tomashallingandxgloscho/" class="circle-nav-link" target="_blank">
+          <text filter="url(#nav-glow)">
+            <textPath href="#nav-circle-path" startOffset="83.3%" text-anchor="middle">instagram</textPath>
+          </text>
+        </a>
+      </svg>
+
+
+      <div id="_gg_grain_overlay"></div>
+      <div id="vignette"></div>
+      <div id="postfx-scanlines"></div>
+      <div id="postfx-rgb-shift"></div>
     </div>
-    <script src="assets/script.js"></script>
+
+    <!-- GUI toggled with Cmd+G -->
+    <script src="glow-gradient.js?v=13"></script>
+    <script src="script.js?v=13"></script>
+    <script type="module" src="glow-gradient-gui.js?v=13"></script>
   </body>
 </html>
