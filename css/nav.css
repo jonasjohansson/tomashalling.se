@@ -13,7 +13,7 @@
 }
 
 .circle-nav-link {
-  pointer-events: auto;
+  pointer-events: none;
   cursor: pointer;
   text-decoration: none;
 }
@@ -25,7 +25,7 @@
   letter-spacing: 6px;
   text-transform: uppercase;
   transition: fill 0.3s ease;
-  pointer-events: all;
+  pointer-events: painted;
   cursor: pointer;
 }
 

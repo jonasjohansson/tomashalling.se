@@ -68,6 +68,10 @@
     if (dragging) e.preventDefault();
   }, { passive: false });
 
+  // Prevent double-click/double-tap zoom
+  vp.addEventListener('dblclick', function (e) { e.preventDefault(); });
+  document.addEventListener('gesturestart', function (e) { e.preventDefault(); });
+
   function tick() {
     var pr = panRange();
     var targetPx = { x: targetN.x * pr.rangeX, y: targetN.y * pr.rangeY };
