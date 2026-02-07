@@ -1,0 +1,46 @@
+.circle-nav {
+  position: absolute;
+  width: 80vmin;
+  height: 80vmin;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: 20;
+  pointer-events: none;
+  overflow: visible;
+  animation: circleNavSpin 80s linear infinite;
+  mix-blend-mode: normal;
+}
+
+.circle-nav-link {
+  pointer-events: auto;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.circle-nav text {
+  font-family: 'Finger Paint', cursive;
+  font-size: 68px;
+  fill: #fff;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  transition: fill 0.3s ease;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.circle-nav-sep {
+  font-family: 'Finger Paint', cursive;
+  font-size: 44px;
+  fill: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+}
+
+.circle-nav-link:hover text {
+  fill: #FFE066;
+}
+
+@keyframes circleNavSpin {
+  from { rotate: 0deg; }
+  to { rotate: 360deg; }
+}

@@ -1,0 +1,64 @@
+.artwork-item {
+  position: relative;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 2;
+  background-color: transparent;
+  transform-style: flat;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+  animation: float var(--float-duration, 4s) ease-in-out var(--float-delay, 0s) infinite;
+  scale: var(--depth-scale, 1);
+  mix-blend-mode: multiply;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+.artwork-item:hover {
+  z-index: 50;
+}
+
+.artwork-item:not(.name-letter):not(.fixed-center) {
+  cursor: grab;
+}
+
+/* Random spin class applied via JS */
+.artwork-item.spinning {
+  animation: chaosSpin 0.6s cubic-bezier(0.2, 0.8, 0.3, 1.2) forwards !important;
+}
+
+@keyframes chaosSpin {
+  0% { transform: perspective(600px) rotateY(0deg) rotateX(0deg) scale(1); }
+  40% { transform: perspective(600px) rotateY(240deg) rotateX(15deg) scale(1.15); }
+  100% { transform: perspective(600px) rotateY(360deg) rotateX(0deg) scale(1); }
+}
+
+/* Name letters — absolutely positioned, scattered across the artwork */
+.name-letter {
+  position: absolute;
+  animation: letterFloat var(--float-duration, 3s) ease-in-out var(--float-delay, 0s) infinite;
+  z-index: 10;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg); }
+  25% { transform: translate3d(0, calc(var(--float-y, -6px)), 0) rotateX(calc(var(--float-rx, 2deg))) rotateY(calc(var(--float-ry, -1deg))); }
+  50% { transform: translate3d(calc(var(--float-x, 3px)), calc(var(--float-y, -6px) * -0.5), 0) rotateX(calc(var(--float-rx, 2deg) * -1)) rotateY(calc(var(--float-ry, -1deg) * -1)); }
+  75% { transform: translate3d(calc(var(--float-x, 3px) * -1), calc(var(--float-y, -6px) * 0.3), 0) rotateX(calc(var(--float-rx, 2deg) * 0.5)) rotateY(calc(var(--float-ry, -1deg) * 0.7)); }
+}
+
+@keyframes letterFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  33% { transform: translate3d(calc(var(--float-x, 2px)), calc(var(--float-y, -8px)), 0) rotate(calc(var(--float-rot, 3deg))); }
+  66% { transform: translate3d(calc(var(--float-x, 2px) * -1), calc(var(--float-y, -8px) * 0.5), 0) rotate(calc(var(--float-rot, 3deg) * -1)); }
+}
+
+.artwork-item img,
+.artwork-item video,
+.artwork-item canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
