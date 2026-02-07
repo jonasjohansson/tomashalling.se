@@ -103,15 +103,17 @@
   const letters = document.querySelectorAll('.name-letter');
   const centerEl = document.querySelector('.fixed-center');
 
-  // Non-letter artwork items get CSS animation float
+  // Non-letter artwork items get CSS animation float + depth
   items.forEach((item) => {
     if (item.classList.contains('name-letter')) return; // letters handled in JS loop
-    const dur = 3 + Math.random() * 4;
+    // Depth: 0 = far away, 1 = closest. Center is always at depth 1.
+    const depth = item.classList.contains('fixed-center') ? 1 : 0.45 + Math.random() * 0.55;
+    const dur = (4 + Math.random() * 5) / (0.5 + depth * 0.5); // far = slower float
     const delay = Math.random() * -dur;
-    const floatY = -(4 + Math.random() * 8);
-    const floatX = (Math.random() - 0.5) * 6;
-    const floatRx = (Math.random() - 0.5) * 4;
-    const floatRy = (Math.random() - 0.5) * 3;
+    const floatY = -(12 + Math.random() * 25) * depth;
+    const floatX = (Math.random() - 0.5) * 30 * depth;
+    const floatRx = (Math.random() - 0.5) * 8;
+    const floatRy = (Math.random() - 0.5) * 6;
 
     item.style.setProperty('--float-duration', `${dur.toFixed(1)}s`);
     item.style.setProperty('--float-delay', `${delay.toFixed(1)}s`);
@@ -119,6 +121,14 @@
     item.style.setProperty('--float-x', `${floatX.toFixed(1)}px`);
     item.style.setProperty('--float-rx', `${floatRx.toFixed(1)}deg`);
     item.style.setProperty('--float-ry', `${floatRy.toFixed(1)}deg`);
+
+    // Depth visual cues: scale, opacity, blur
+    const scale = 0.7 + depth * 0.35; // 0.7 – 1.05
+    const opacity = 0.55 + depth * 0.45; // 0.55 – 1.0
+    const blur = Math.max(0, (1 - depth) * 1.0); // 0 – ~0.5px
+    item.style.setProperty('--depth-scale', scale.toFixed(3));
+    item.style.setProperty('--depth-opacity', opacity.toFixed(2));
+    item.style.setProperty('--depth-blur', `${blur.toFixed(1)}px`);
   });
 
   // 3D tilt on hover for non-letter artwork (skip center item)
@@ -158,15 +168,23 @@
   const letterState = [];
   letters.forEach((el) => {
     el.style.animation = 'none';
+    const depth = 0.4 + Math.random() * 0.6; // 0.4 – 1.0
+    const scale = 0.65 + depth * 0.4; // 0.65 – 1.05
+    const opacity = 0.5 + depth * 0.5; // 0.5 – 1.0
+    const blur = Math.max(0, (1 - depth) * 1.0); // 0 – ~0.6px
+    el.style.setProperty('--depth-scale', scale.toFixed(3));
+    el.style.setProperty('--depth-opacity', opacity.toFixed(2));
+    el.style.setProperty('--depth-blur', `${blur.toFixed(1)}px`);
     letterState.push({
       el,
+      depth,
       phase: Math.random() * Math.PI * 2,
-      freqX: 0.3 + Math.random() * 0.4,
-      freqY: 0.4 + Math.random() * 0.5,
-      freqR: 0.2 + Math.random() * 0.3,
-      ampX: 2 + Math.random() * 4,
-      ampY: 4 + Math.random() * 8,
-      ampR: 2 + Math.random() * 5,
+      freqX: (0.15 + Math.random() * 0.25) * (0.5 + depth * 0.5),
+      freqY: (0.2 + Math.random() * 0.3) * (0.5 + depth * 0.5),
+      freqR: 0.1 + Math.random() * 0.2,
+      ampX: (15 + Math.random() * 30) * depth,
+      ampY: (20 + Math.random() * 40) * depth,
+      ampR: (3 + Math.random() * 8) * depth,
       repelX: 0, repelY: 0,
       scramX: 0, scramY: 0, scramR: 0,
       tScramX: 0, tScramY: 0, tScramR: 0,
@@ -206,7 +224,8 @@
       const ty = floatY + s.repelY + s.scramY;
       const rot = floatR + s.scramR;
 
-      s.el.style.transform = `translate3d(${tx}px, ${ty}px, 0) rotate(${rot}deg)`;
+      const sc = 0.65 + s.depth * 0.4;
+      s.el.style.transform = `translate3d(${tx}px, ${ty}px, 0) rotate(${rot}deg) scale(${sc.toFixed(3)})`;
     }
     requestAnimationFrame(updateLetters);
   }
@@ -507,7 +526,11 @@
     lastDofUpdate = time;
     const p = window.PostFXParams;
     if (!p.dofEnabled) {
-      items.forEach(item => { item.style.filter = ''; });
+      // Reset to depth blur only
+      items.forEach(item => {
+        const db = parseFloat(item.style.getPropertyValue('--depth-blur')) || 0;
+        item.style.filter = db > 0 ? `blur(${db}px)` : '';
+      });
       requestAnimationFrame(updateDOF); return;
     }
     const maxBlur = p.dofMaxBlur || DOF_MAX_BLUR;
@@ -516,6 +539,7 @@
     const screenCY = window.innerHeight / 2;
 
     items.forEach(item => {
+      const depthBlur = parseFloat(item.style.getPropertyValue('--depth-blur')) || 0;
       // Center item is always sharp
       if (item.classList.contains('fixed-center')) { item.style.filter = ''; return; }
       const rect = item.getBoundingClientRect();
@@ -523,9 +547,9 @@
       const cy = rect.top + rect.height / 2;
       const dx = cx - screenCX, dy = cy - screenCY;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      const blur = Math.min(maxBlur, Math.max(0, (dist - focusR) / focusR * maxBlur));
-      const rounded = Math.round(blur * 2) / 2;
-      item.style.filter = rounded > 0 ? `blur(${rounded}px)` : '';
+      const dofBlur = Math.min(maxBlur, Math.max(0, (dist - focusR) / focusR * maxBlur));
+      const totalBlur = Math.round((dofBlur + depthBlur) * 2) / 2;
+      item.style.filter = totalBlur > 0 ? `blur(${totalBlur}px)` : '';
     });
     requestAnimationFrame(updateDOF);
   }
@@ -651,8 +675,8 @@
     rgbShiftOpacity: 0.0,
     bgSpeed: 1.0,
     dofEnabled: true,
-    dofMaxBlur: 3.5,
-    dofFocusRadius: 200,
+    dofMaxBlur: 4,
+    dofFocusRadius: 300,
     lightLeakOpacity: 0.5,
   };
 
@@ -669,8 +693,6 @@
     vpEl.style.setProperty('--contrast', p.contrast);
     vpEl.style.setProperty('--brightness', p.brightness);
 
-    document.getElementById('postfx-scanlines').style.setProperty('--scanline-opacity', p.scanlineOpacity);
-    document.getElementById('postfx-rgb-shift').style.setProperty('--rgb-shift-opacity', p.rgbShiftOpacity);
     document.body.style.setProperty('--bg-speed', `${25 / Math.max(0.1, p.bgSpeed)}s`);
 
     // Light leak opacity
