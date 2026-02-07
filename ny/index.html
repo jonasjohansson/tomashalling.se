@@ -6,9 +6,12 @@
       name="viewport"
       content="width=device-width, initial-scale=1" />
     <title>Tomas Halling</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
     <link
       rel="stylesheet"
-      href="style.css" />
+      href="style.css?v=8" />
   </head>
   <body>
     <div id="_gg_stage">
@@ -54,8 +57,43 @@
         <div class="artwork-item x-20 y-4 w-4 h-6">
           <img src="../assets/svg/tomas-halling_8.svg" />
         </div>
-        <div class="artwork-item x-5 y-8 w-16 h-4" style="z-index:10">
-          <img src="../assets/svg/tomas-halling_namesign_Namesign.svg" />
+        <!-- T O M A S -->
+        <div class="artwork-item name-letter x-4 y-9 w-2 h-2" style="z-index:10" data-letter="t">
+          <img src="../assets/svg/t.svg" />
+        </div>
+        <div class="artwork-item name-letter x-6 y-8 w-2 h-2" style="z-index:10" data-letter="o">
+          <img src="../assets/svg/o.svg" />
+        </div>
+        <div class="artwork-item name-letter x-8 y-9 w-2 h-3" style="z-index:10" data-letter="m">
+          <img src="../assets/svg/m.svg" />
+        </div>
+        <div class="artwork-item name-letter x-10 y-8 w-2 h-2" style="z-index:10" data-letter="a1">
+          <img src="../assets/svg/a1.svg" />
+        </div>
+        <div class="artwork-item name-letter x-12 y-9 w-2 h-2" style="z-index:10" data-letter="s">
+          <img src="../assets/svg/s.svg" />
+        </div>
+        <!-- H A L L I N G -->
+        <div class="artwork-item name-letter x-14 y-8 w-2 h-3" style="z-index:10" data-letter="h">
+          <img src="../assets/svg/h.svg" />
+        </div>
+        <div class="artwork-item name-letter x-16 y-9 w-2 h-2" style="z-index:10" data-letter="a2">
+          <img src="../assets/svg/a2.svg" />
+        </div>
+        <div class="artwork-item name-letter x-18 y-8 w-1 h-3" style="z-index:10" data-letter="l1">
+          <img src="../assets/svg/l1.svg" />
+        </div>
+        <div class="artwork-item name-letter x-19 y-9 w-1 h-3" style="z-index:10" data-letter="l2">
+          <img src="../assets/svg/l2.svg" />
+        </div>
+        <div class="artwork-item name-letter x-20 y-8 w-1 h-2" style="z-index:10" data-letter="i">
+          <img src="../assets/svg/i.svg" />
+        </div>
+        <div class="artwork-item name-letter x-21 y-9 w-2 h-2" style="z-index:10" data-letter="n">
+          <img src="../assets/svg/n.svg" />
+        </div>
+        <div class="artwork-item name-letter x-23 y-8 w-2 h-2" style="z-index:10" data-letter="g">
+          <img src="../assets/svg/g.svg" />
         </div>
         <div class="artwork-item fixed-center x-8 y-8 w-10 h-10">
           <img src="../assets/svg/tomas-halling_9.svg" />
@@ -64,13 +102,68 @@
           <img src="../assets/svg/tomas-halling_10.svg" />
         </div>
       </div>
+
+      <!-- Circular text navigation -->
+      <svg class="circle-nav" viewBox="0 0 600 600" aria-label="Navigation">
+        <defs>
+          <path id="nav-circle-path"
+            d="M 300,300 m -230,0 a 230,230 0 1,1 460,0 a 230,230 0 1,1 -460,0"
+            fill="none"/>
+          <filter id="nav-glow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <a href="mailto:info@tomashalling.se" class="circle-nav-link">
+          <text filter="url(#nav-glow)">
+            <textPath href="#nav-circle-path" startOffset="12.5%" text-anchor="middle">✦ kontakt</textPath>
+          </text>
+        </a>
+        <a href="https://docs.google.com/document/d/1MMRRXbYMeeVk50FM0Pr2nPE6ce9Ow_TqRXcznx18YEA/export?format=pdf" class="circle-nav-link" target="_blank">
+          <text filter="url(#nav-glow)">
+            <textPath href="#nav-circle-path" startOffset="37.5%" text-anchor="middle">✦ cv</textPath>
+          </text>
+        </a>
+        <a href="https://instagram.com/tomashallingandxgloscho/" class="circle-nav-link" target="_blank">
+          <text filter="url(#nav-glow)">
+            <textPath href="#nav-circle-path" startOffset="62.5%" text-anchor="middle">✦ instagram</textPath>
+          </text>
+        </a>
+        <a href="#lankar" class="circle-nav-link" data-overlay="lankar">
+          <text filter="url(#nav-glow)">
+            <textPath href="#nav-circle-path" startOffset="87.5%" text-anchor="middle">✦ länkar</textPath>
+          </text>
+        </a>
+      </svg>
+
+      <!-- Länkar overlay -->
+      <div id="lankar-overlay" class="overlay" hidden>
+        <div class="overlay-backdrop"></div>
+        <div class="overlay-content">
+          <button class="overlay-close" aria-label="Close">&times;</button>
+          <h2>Länkar</h2>
+          <nav class="overlay-links">
+            <a href="https://www.instagram.com/tomasxgloschoartgallery" target="_blank">Art Gallery</a>
+            <a href="https://www.sverigesradio.se/avsnitt/909823" target="_blank">P1 Dokumentär: Bubbelplastmannen</a>
+            <a href="https://www.youtube.com/watch?v=l-DqJYWjzfg" target="_blank">Kanal Lokal Göteborg: Reportage</a>
+            <a href="https://www.youtube.com/@tomashalling" target="_blank">Youtube @tomashalling</a>
+            <a href="https://www.youtube.com/@tomashallingxgloscho" target="_blank">Youtube @tomashallingxgloscho</a>
+          </nav>
+        </div>
+      </div>
+
       <div id="_gg_grain_overlay"></div>
       <div id="vignette"></div>
+      <div id="postfx-scanlines"></div>
+      <div id="postfx-rgb-shift"></div>
     </div>
 
-    <button id="toggle-gui" style="position: fixed; top: 10px; right: 10px; z-index: 10000; padding: 10px 20px; background: rgba(0,0,0,0.7); color: white; border: none; cursor: pointer; border-radius: 4px; font-family: ui-sans-serif, system-ui;">Toggle GUI</button>
-    <script type="module" src="glow-gradient-gui.js"></script>
-    <script src="glow-gradient.js"></script>
-    <script src="script.js"></script>
+    <!-- GUI toggled with Cmd+G -->
+    <script src="glow-gradient.js?v=8"></script>
+    <script src="script.js?v=8"></script>
+    <script type="module" src="glow-gradient-gui.js?v=8"></script>
   </body>
 </html>

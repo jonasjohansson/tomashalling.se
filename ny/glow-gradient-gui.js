@@ -4,12 +4,9 @@ import GUI from "https://cdn.jsdelivr.net/npm/lil-gui@0.21/+esm";
 let gui = null;
 let guiVisible = false;
 
-// Wait for glow-gradient.js to set up
+// Wait for both glow-gradient.js AND script.js to set up
 function initGUI() {
-  // Check if params are available (they should be in the glow-gradient.js scope)
-  // We'll need to expose them globally or access them differently
-  if (typeof window.GlowGradientParams === 'undefined') {
-    // Try again after a short delay
+  if (typeof window.GlowGradientParams === 'undefined' || typeof window.PostFXParams === 'undefined') {
     setTimeout(initGUI, 100);
     return;
   }
@@ -123,25 +120,48 @@ function initGUI() {
     if (updateFunctions.updateBlendMode) updateFunctions.updateBlendMode(value);
   });
 
+  // Post FX folder
+  const pfx = window.PostFXParams;
+  const fxFolder = gui.addFolder("Post FX");
+  fxFolder.add(pfx, "hueRotate", -180, 180, 1).name("Hue Rotate");
+  fxFolder.add(pfx, "hueSpeed", 0, 3, 0.01).name("Hue Cycle Speed");
+  fxFolder.add(pfx, "saturate", 0, 3, 0.01).name("Saturation");
+  fxFolder.add(pfx, "contrast", 0.5, 2, 0.01).name("Contrast");
+  fxFolder.add(pfx, "brightness", 0.5, 2, 0.01).name("Brightness");
+  fxFolder.add(pfx, "scanlineOpacity", 0, 1, 0.01).name("Scanlines");
+  fxFolder.add(pfx, "rgbShiftOpacity", 0, 1, 0.01).name("RGB Shift");
+  fxFolder.add(pfx, "bgSpeed", 0.1, 5, 0.1).name("BG Drift Speed");
+  fxFolder.add(pfx, "lightLeakOpacity", 0, 1, 0.01).name("Light Leaks");
+
+  // Depth of Field folder
+  const dofFolder = gui.addFolder("Depth of Field");
+  dofFolder.add(pfx, "dofEnabled").name("Enabled");
+  dofFolder.add(pfx, "dofMaxBlur", 0, 8, 0.5).name("Max Blur");
+  dofFolder.add(pfx, "dofFocusRadius", 50, 600, 10).name("Focus Radius");
+
   gui.hide();
   guiVisible = false;
 }
 
-// Toggle button
-document.getElementById("toggle-gui")?.addEventListener("click", () => {
-  if (!gui) {
-    initGUI();
-    return;
-  }
-  
-  if (guiVisible) {
-    gui.hide();
-    guiVisible = false;
-  } else {
-    gui.show();
-    guiVisible = true;
+// Toggle GUI with Cmd+G (Mac) / Ctrl+G (other)
+document.addEventListener("keydown", (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === "g") {
+    e.preventDefault();
+    if (!gui) {
+      initGUI();
+      // Show after init
+      setTimeout(() => { if (gui) { gui.show(); guiVisible = true; } }, 600);
+      return;
+    }
+    if (guiVisible) {
+      gui.hide();
+      guiVisible = false;
+    } else {
+      gui.show();
+      guiVisible = true;
+    }
   }
 });
 
-// Start initialization
+// Start initialization (hidden by default)
 setTimeout(initGUI, 500);
