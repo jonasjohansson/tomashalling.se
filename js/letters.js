@@ -75,7 +75,6 @@
 
   // Scramble
   function triggerScramble() {
-    playSound('scramble');
     for (var i = 0; i < letterState.length; i++) {
       var s = letterState[i];
       s.tScramX = (Math.random() - 0.5) * C.scrambleRange.x;

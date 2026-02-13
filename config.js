@@ -61,14 +61,6 @@ window.CONFIG = {
     floatRy: { range: 6 },
   },
 
-  sound: {
-    click: { gain: 0.15 },
-    spin: { gain: 0.08 },
-    scramble: { gain: 0.06 },
-    explode: { gain: 0.25, crackleGain: 0.12 },
-    trumpet: { gain: 0.1 },
-  },
-
   spin: {
     interval: { min: 2000, range: 4000 },
   },

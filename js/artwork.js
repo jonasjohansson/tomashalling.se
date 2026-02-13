@@ -106,7 +106,6 @@
     var target = candidates[Math.floor(Math.random() * candidates.length)];
     if (target.classList.contains('spinning')) return;
     target.classList.add('spinning');
-    playSound('spin');
     target.addEventListener('animationend', function () {
       target.classList.remove('spinning');
       target.style.transform = '';

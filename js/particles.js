@@ -55,7 +55,6 @@
       used.add(idx);
       emitBurst(C.outlets[idx], true);
     }
-    playSound('trumpet');
   }
 
   (function scheduleSmall() {

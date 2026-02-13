@@ -6,7 +6,7 @@
   function explodeItem(item) {
     if (item.dataset.exploding === 'true') return;
     item.dataset.exploding = 'true';
-    playSound('explode');
+    if (item.dataset.sound) playCreatureSound(item.dataset.sound);
 
     var rect = item.getBoundingClientRect();
     var cx = rect.left + rect.width / 2;

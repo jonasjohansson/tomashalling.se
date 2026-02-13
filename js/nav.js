@@ -5,7 +5,6 @@
     link.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
-      playSound('click');
       var href = link.getAttribute('href');
       if (!href || href === '#') return;
       if (href.startsWith('mailto:')) {
