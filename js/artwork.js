@@ -58,46 +58,6 @@
     });
   });
 
-  // Artwork drag state
-  var artState = new Map();
-  items.forEach(function (item) {
-    if (item.classList.contains('name-letter')) return;
-    artState.set(item, { dragX: 0, dragY: 0 });
-  });
-
-  function applyArtTranslate(item, st) {
-    item.style.translate = st.dragX + 'px ' + st.dragY + 'px';
-  }
-
-  // Draggable artwork items
-  items.forEach(function (item) {
-    if (item.classList.contains('name-letter')) return;
-    if (item.classList.contains('fixed-center')) return;
-    var st = artState.get(item);
-    var isDragging = false, startX, startY, startDX, startDY;
-
-    item.addEventListener('pointerdown', function (e) {
-      e.stopPropagation();
-      isDragging = true;
-      startX = e.clientX; startY = e.clientY;
-      startDX = st.dragX; startDY = st.dragY;
-      item.setPointerCapture(e.pointerId);
-      item.style.cursor = 'grabbing';
-      item.style.zIndex = '50';
-    });
-    item.addEventListener('pointermove', function (e) {
-      if (!isDragging) return;
-      st.dragX = startDX + (e.clientX - startX);
-      st.dragY = startDY + (e.clientY - startY);
-      applyArtTranslate(item, st);
-    });
-    item.addEventListener('pointerup', function () {
-      isDragging = false;
-      item.style.cursor = '';
-      item.style.zIndex = '';
-    });
-  });
-
   // Random chaos spins
   function triggerRandomSpin() {
     var allItems = document.querySelectorAll('.artwork-item');
