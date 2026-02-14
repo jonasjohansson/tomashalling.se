@@ -67,18 +67,7 @@
         video.loop = true;
         video.muted = true;
         video.playsInline = true;
-        var artworkItem = video.closest('.artwork-item');
-        if (artworkItem) {
-          artworkItem.addEventListener('mouseenter', function () {
-            if (video.readyState >= 2) {
-              video.play().catch(function () {});
-            }
-          });
-          artworkItem.addEventListener('mouseleave', function () {
-            video.pause();
-            video.currentTime = 0;
-          });
-        }
+        video.play().catch(function () {});
         if (video.readyState >= 2 && video.videoWidth > 0) {
           makeVideoTransparent(video);
         } else {
