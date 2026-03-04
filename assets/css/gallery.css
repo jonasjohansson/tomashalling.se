@@ -1,19 +1,11 @@
-/* Gallery overlay */
+/* Gallery inline section (below the artwork viewport) */
 .gallery-overlay {
-  position: fixed;
-  inset: 0;
+  position: relative;
+  margin-top: 0;
   z-index: 100;
-  background: transparent;
-  overflow-y: auto;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
+  background: #1a3a40;
+  overflow-y: visible;
   padding: 5rem 2rem 2rem;
-}
-
-.gallery-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
 }
 
 .gallery-title {
@@ -23,24 +15,6 @@
   font-size: clamp(24px, 4vw, 42px);
   margin: 0 0 2rem;
   letter-spacing: 2px;
-}
-
-.gallery-close {
-  position: fixed;
-  top: 1rem;
-  right: 1.5rem;
-  z-index: 110;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 2.5rem;
-  cursor: pointer;
-  line-height: 1;
-  transition: color 0.3s ease;
-}
-
-.gallery-close:hover {
-  color: #FFE066;
 }
 
 /* Gallery tabs */
@@ -134,15 +108,6 @@
   font-size: 0.85rem;
   padding: 0.6rem 0.8rem;
   text-align: center;
-}
-
-/* Gallery open state — artwork already dissolved via JS */
-body.gallery-open .artwork-item {
-  pointer-events: none !important;
-}
-
-body.gallery-open .site-title {
-  pointer-events: none;
 }
 
 /* Lightbox */

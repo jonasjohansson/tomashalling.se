@@ -1,4 +1,4 @@
-/* Gallery: open/close, grid population, lightbox */
+/* Gallery: inline section, grid population, lightbox */
 (function () {
   var PAINTINGS = [
     'tomas-halling-2025-vandrande-ballongtapet-akryl-41x33-upscale.jpeg',
@@ -137,7 +137,6 @@
 
   var overlay = document.getElementById('gallery-overlay');
   var grid = document.getElementById('gallery-grid');
-  var closeBtn = document.getElementById('gallery-close');
   var lightbox = document.getElementById('lightbox');
   var lightboxImg = document.getElementById('lightbox-img');
   var lightboxCaption = document.getElementById('lightbox-caption');
@@ -252,106 +251,14 @@
     });
   }
 
-  /* Dissolve items into particles */
-  function dissolveItems(items, callback) {
-    var staggerDelay = 80;
-    var totalDuration = items.length * staggerDelay + 400;
+  /* Build gallery content on page load */
+  buildTabs();
+  buildGrid();
 
-    items.forEach(function (item, i) {
-      setTimeout(function () {
-        // Spawn particles from item bounds
-        var rect = item.getBoundingClientRect();
-        if (rect.width === 0 && rect.height === 0) return;
-        var cx = rect.left + rect.width / 2;
-        var cy = rect.top + rect.height / 2;
-        var count = 15 + Math.floor(Math.random() * 15);
-
-        for (var p = 0; p < count; p++) {
-          var px = rect.left + Math.random() * rect.width;
-          var py = rect.top + Math.random() * rect.height;
-          var angle = Math.atan2(py - cy, px - cx) + (Math.random() - 0.5) * 1.2;
-          var spd = 1.5 + Math.random() * 4;
-          window._particles.push({
-            x: px, y: py,
-            vx: Math.cos(angle) * spd,
-            vy: Math.sin(angle) * spd - Math.random() * 1.5,
-            life: 1,
-            decay: 0.006 + Math.random() * 0.01,
-            size: 2 + Math.random() * 5,
-            color: window._pColors[Math.floor(Math.random() * window._pColors.length)]
-          });
-        }
-
-        // Fade item out
-        item.style.transition = 'opacity 0.4s ease';
-        item.style.opacity = '0';
-      }, i * staggerDelay);
-    });
-
-    // Fade site title
-    var siteTitle = document.querySelector('.site-title');
-    if (siteTitle) {
-      siteTitle.style.transition = 'opacity 0.4s ease';
-      siteTitle.style.opacity = '0';
-    }
-
-    setTimeout(callback, totalDuration);
-  }
-
-  /* Gallery open/close */
+  /* openGallery: smooth-scroll to the gallery section */
   window.openGallery = function () {
-    var items = Array.from(document.querySelectorAll('.artwork-item'));
-
-    dissolveItems(items, function () {
-      // Hide viewport after dissolve
-      var viewport = document.getElementById('viewport');
-      if (viewport) viewport.style.display = 'none';
-
-      buildTabs();
-      buildGrid();
-      document.body.classList.add('gallery-open');
-      overlay.classList.add('active');
-    });
+    overlay.scrollIntoView({ behavior: 'smooth' });
   };
-
-  function closeGallery() {
-    overlay.classList.remove('active');
-
-    setTimeout(function () {
-      document.body.classList.remove('gallery-open');
-
-      // Show viewport again
-      var viewport = document.getElementById('viewport');
-      if (viewport) viewport.style.display = '';
-
-      // Fade items back in
-      var items = document.querySelectorAll('.artwork-item');
-      items.forEach(function (item) {
-        item.style.transition = 'opacity 0.6s ease';
-        item.style.opacity = '1';
-      });
-
-      // Fade title back in
-      var siteTitle = document.querySelector('.site-title');
-      if (siteTitle) {
-        siteTitle.style.transition = 'opacity 0.6s ease';
-        siteTitle.style.opacity = '1';
-      }
-
-      // Clean up inline transitions after animation
-      setTimeout(function () {
-        items.forEach(function (item) {
-          item.style.transition = '';
-        });
-        if (siteTitle) siteTitle.style.transition = '';
-      }, 700);
-    }, 400);
-  }
-
-  closeBtn.addEventListener('click', closeGallery);
-  overlay.addEventListener('click', function (e) {
-    if (e.target === overlay) closeGallery();
-  });
 
   /* Lightbox */
   function openLightbox(src, title) {
@@ -371,14 +278,10 @@
     if (e.target === lightbox) closeLightbox();
   });
 
-  /* Escape key */
+  /* Escape key for lightbox only */
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      if (lightbox.classList.contains('active')) {
-        closeLightbox();
-      } else if (overlay.classList.contains('active')) {
-        closeGallery();
-      }
+    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+      closeLightbox();
     }
   });
 })();

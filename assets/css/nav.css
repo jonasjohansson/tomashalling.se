@@ -1,7 +1,7 @@
 /* Site title */
 .site-title {
-  position: fixed;
-  top: 26%;
+  position: absolute;
+  top: 26vh;
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
@@ -23,11 +23,28 @@
   width: auto;
   display: block;
   filter: none;
-  transition: transform 0.3s ease;
+  --dy: -3px;
+  --rot: 1.5deg;
+  --dur: 4s;
+  animation: letterFloat var(--dur) ease-in-out infinite;
 }
 
-.title-letter:hover {
-  transform: scale(1.15) rotate(-5deg);
+/* T */  .title-letter:nth-child(1)  { --dy: -8px;  --rot: 4deg;    --dur: 3.8s; animation-delay: 0s; }
+/* O */  .title-letter:nth-child(2)  { --dy: -6px;  --rot: -3.5deg; --dur: 4.4s; animation-delay: -0.5s; }
+/* M */  .title-letter:nth-child(3)  { --dy: -10px; --rot: 2.5deg;  --dur: 5s;   animation-delay: -1.1s; }
+/* A */  .title-letter:nth-child(4)  { --dy: -7px;  --rot: -4.5deg; --dur: 3.6s; animation-delay: -1.6s; }
+/* S */  .title-letter:nth-child(5)  { --dy: -5px;  --rot: 3.5deg;  --dur: 4.2s; animation-delay: -2.2s; }
+/* H */  .title-letter:nth-child(7)  { --dy: -9px;  --rot: -2.5deg; --dur: 4.6s; animation-delay: -0.3s; }
+/* A */  .title-letter:nth-child(8)  { --dy: -6px;  --rot: 5deg;    --dur: 3.5s; animation-delay: -0.9s; }
+/* L */  .title-letter:nth-child(9)  { --dy: -5px;  --rot: -4deg;   --dur: 5.2s; animation-delay: -1.4s; }
+/* L */  .title-letter:nth-child(10) { --dy: -10px; --rot: 3deg;    --dur: 4.1s; animation-delay: -1.8s; }
+/* I */  .title-letter:nth-child(11) { --dy: -7px;  --rot: -5deg;   --dur: 3.9s; animation-delay: -2.5s; }
+/* N */  .title-letter:nth-child(12) { --dy: -8px;  --rot: 3.5deg;  --dur: 4.8s; animation-delay: -0.7s; }
+/* G */  .title-letter:nth-child(13) { --dy: -6px;  --rot: -3deg;   --dur: 4.3s; animation-delay: -1.9s; }
+
+@keyframes letterFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(var(--dy)) rotate(var(--rot)); }
 }
 
 .title-letter-space {

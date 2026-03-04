@@ -4,11 +4,14 @@
   --grid-size: 24;
 }
 
-html,
-body {
-  height: 100%;
+html {
   margin: 0;
-  overflow: hidden;
+  background: #1a3a40;
+  font-family: ui-sans-serif, system-ui;
+}
+
+body {
+  margin: 0;
   background: #1a3a40;
   font-family: ui-sans-serif, system-ui;
   position: relative;
