@@ -43,11 +43,11 @@
 
 .nav-label {
   position: absolute;
-  top: 50%;
+  bottom: 5%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   font-family: 'Finger Paint', cursive;
-  font-size: clamp(12px, 2vw, 22px);
+  font-size: clamp(16px, 2.5vw, 30px);
   color: #fff;
   white-space: nowrap;
   pointer-events: none;
@@ -56,9 +56,6 @@
   text-transform: uppercase;
 }
 
-[data-nav="galleri"] .nav-label {
-  font-size: clamp(16px, 2.5vw, 30px);
-}
 
 .nav-creature:hover .nav-label {
   color: #fff;
