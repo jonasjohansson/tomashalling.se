@@ -9,8 +9,9 @@
   function updateArtworkSize() {
     var vpW = vp.clientWidth;
     var vpH = vp.clientHeight;
-    document.documentElement.style.setProperty('--artwork-width', vpW + 'px');
-    document.documentElement.style.setProperty('--artwork-height', vpH + 'px');
+    var size = Math.min(vpW, vpH);
+    document.documentElement.style.setProperty('--artwork-width', size + 'px');
+    document.documentElement.style.setProperty('--artwork-height', size + 'px');
   }
 
   updateArtworkSize();

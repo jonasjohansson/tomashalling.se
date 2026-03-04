@@ -20,6 +20,11 @@
   place-self: center;
 }
 
+[data-nav="sverigesradio"] {
+  max-width: 80% !important;
+  max-height: 80% !important;
+}
+
 .artwork-item:hover {
   z-index: 50;
 }
@@ -57,6 +62,8 @@
   pointer-events: none;
   text-shadow: none;
   text-transform: uppercase;
+  text-align: center;
+  line-height: 1.1;
 }
 
 [data-nav="cv"] .nav-label {
