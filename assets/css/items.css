@@ -56,6 +56,10 @@
   text-transform: uppercase;
 }
 
+[data-nav="galleri"] .nav-label {
+  font-size: clamp(24px, 4vw, 48px);
+}
+
 .nav-creature:hover .nav-label {
   color: #FFE066;
 }
