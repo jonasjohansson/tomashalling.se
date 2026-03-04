@@ -47,7 +47,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: 'Finger Paint', cursive;
-  font-size: clamp(18px, 3vw, 34px);
+  font-size: clamp(12px, 2vw, 22px);
   color: #fff;
   white-space: nowrap;
   pointer-events: none;
@@ -57,7 +57,7 @@
 }
 
 [data-nav="galleri"] .nav-label {
-  font-size: clamp(24px, 4vw, 48px);
+  font-size: clamp(16px, 2.5vw, 30px);
 }
 
 .nav-creature:hover .nav-label {
