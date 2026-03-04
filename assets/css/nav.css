@@ -1,7 +1,7 @@
 /* Site title */
 .site-title {
   position: fixed;
-  top: 32%;
+  top: 26%;
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
@@ -19,7 +19,7 @@
 }
 
 .title-letter {
-  height: clamp(28px, 5vw, 56px);
+  height: clamp(36px, 6.5vw, 72px);
   width: auto;
   display: block;
   filter: none;
