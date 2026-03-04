@@ -9,9 +9,8 @@
   window.addEventListener('mousemove', function (e) { window._mouseX = e.clientX; window._mouseY = e.clientY; });
   window.addEventListener('mouseleave', function () { window._mouseX = -9999; window._mouseY = -9999; });
 
-  // Non-letter artwork items get CSS animation float + depth
+  // All artwork items get CSS animation float + depth
   items.forEach(function (item) {
-    if (item.classList.contains('name-letter')) return;
     var depth = item.classList.contains('fixed-center') ? 1 : C.artwork.depthRange.min + Math.random() * C.artwork.depthRange.range;
     var dur = (C.artwork.floatDuration.min + Math.random() * C.artwork.floatDuration.range) / (0.5 + depth * 0.5);
     var delay = Math.random() * -dur;
@@ -35,9 +34,9 @@
     item.style.setProperty('--depth-blur', blur.toFixed(1) + 'px');
   });
 
-  // 3D tilt on hover for non-letter artwork (skip center item)
+  // 3D tilt on hover (skip center item and nav creatures)
   items.forEach(function (item) {
-    if (item.classList.contains('name-letter')) return;
+    if (item.classList.contains('nav-creature')) return;
     if (item.classList.contains('fixed-center')) return;
     item.addEventListener('mousemove', function (e) {
       var rect = item.getBoundingClientRect();
@@ -58,22 +57,4 @@
     });
   });
 
-  // Random chaos spins
-  function triggerRandomSpin() {
-    var allItems = document.querySelectorAll('.artwork-item');
-    var candidates = Array.from(allItems).filter(function (el) { return !el.classList.contains('fixed-center'); });
-    if (!candidates.length) return;
-    var target = candidates[Math.floor(Math.random() * candidates.length)];
-    if (target.classList.contains('spinning')) return;
-    target.classList.add('spinning');
-    target.addEventListener('animationend', function () {
-      target.classList.remove('spinning');
-      target.style.transform = '';
-      target.style.animation = '';
-    }, { once: true });
-  }
-  (function scheduleSpin() {
-    var iv = C.spin.interval;
-    setTimeout(function () { triggerRandomSpin(); scheduleSpin(); }, iv.min + Math.random() * iv.range);
-  })();
 })();

@@ -43,7 +43,7 @@
   }
 
   items.forEach(function (item) {
-    if (item.classList.contains('name-letter')) return;
+    if (item.classList.contains('nav-creature')) return;
     item.addEventListener('pointerdown', function (e) {
       e.stopPropagation();
       explodeItem(item);

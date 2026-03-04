@@ -9,7 +9,7 @@ window.CONFIG = {
     rgbShiftOpacity: 0.0,
     bgSpeed: 1.0,
     lightLeakOpacity: 0.5,
-    dofEnabled: true,
+    dofEnabled: false,
     dofMaxBlur: 4,
     dofFocusRadius: 300,
   },
@@ -37,23 +37,8 @@ window.CONFIG = {
     eruptionOutlets: { min: 2, max: 6 },
   },
 
-  letters: {
-    repelRadius: 130,
-    repelStrength: 70,
-    floatAmpX: { min: 15, range: 30 },
-    floatAmpY: { min: 20, range: 40 },
-    floatAmpR: { min: 3, range: 8 },
-    floatFreqX: { min: 0.15, range: 0.25 },
-    floatFreqY: { min: 0.2, range: 0.3 },
-    floatFreqR: { min: 0.1, range: 0.2 },
-    scrambleRange: { x: 350, y: 250, r: 180 },
-    scrambleDuration: 1800,
-    scrambleInterval: { min: 18000, range: 22000 },
-  },
-
   artwork: {
     depthRange: { min: 0.45, range: 0.55 },
-    letterDepthRange: { min: 0.4, range: 0.6 },
     floatDuration: { min: 4, range: 5 },
     floatY: { min: -12, range: -25 },
     floatX: { range: 30 },

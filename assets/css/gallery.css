@@ -1,0 +1,198 @@
+/* Gallery overlay */
+.gallery-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: transparent;
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  padding: 5rem 2rem 2rem;
+}
+
+.gallery-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.gallery-title {
+  font-family: 'Finger Paint', cursive;
+  color: #fff;
+  text-align: center;
+  font-size: clamp(24px, 4vw, 42px);
+  margin: 0 0 2rem;
+  letter-spacing: 2px;
+}
+
+.gallery-close {
+  position: fixed;
+  top: 1rem;
+  right: 1.5rem;
+  z-index: 110;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2.5rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.gallery-close:hover {
+  color: #FFE066;
+}
+
+/* Gallery tabs */
+.gallery-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0 0 2rem;
+}
+
+.gallery-tab {
+  font-family: 'Finger Paint', cursive;
+  font-size: clamp(14px, 2.5vw, 20px);
+  color: rgba(255,255,255,0.5);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.4rem 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.gallery-tab:hover {
+  color: rgba(255,255,255,0.8);
+}
+
+.gallery-tab.active {
+  color: #fff;
+  border-bottom-color: #FFE066;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.gallery-grid--exhibitions {
+  display: block;
+}
+
+/* Exhibition sections */
+.exhibition-section {
+  margin-bottom: 3rem;
+}
+
+.exhibition-heading {
+  font-family: 'Finger Paint', cursive;
+  color: #FFE066;
+  font-size: clamp(18px, 3vw, 28px);
+  margin: 0 0 1rem;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.exhibition-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.gallery-card {
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.gallery-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.gallery-card-title {
+  font-family: 'Finger Paint', cursive;
+  color: #fff;
+  font-size: 0.85rem;
+  padding: 0.6rem 0.8rem;
+  text-align: center;
+}
+
+/* Gallery open state — artwork already dissolved via JS */
+body.gallery-open .artwork-item {
+  pointer-events: none !important;
+}
+
+body.gallery-open .site-title {
+  pointer-events: none;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2.5rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.lightbox-close:hover {
+  color: #FFE066;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.lightbox-caption {
+  font-family: 'Finger Paint', cursive;
+  color: #fff;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  text-align: center;
+}

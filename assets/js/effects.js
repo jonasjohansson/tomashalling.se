@@ -53,39 +53,8 @@
     '@keyframes leakDrift3 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-10vw,-20vh)} 66%{transform:translate(50vw,30vh)} }';
   document.head.appendChild(leakStyle);
 
-  // --- Depth of Field ---
-  var lastDofUpdate = 0;
-  function updateDOF(time) {
-    if (time - lastDofUpdate < 50) { requestAnimationFrame(updateDOF); return; }
-    lastDofUpdate = time;
-    var p = window.PostFXParams;
-    if (!p.dofEnabled) {
-      items.forEach(function (item) {
-        var db = parseFloat(item.style.getPropertyValue('--depth-blur')) || 0;
-        item.style.filter = db > 0 ? 'blur(' + db + 'px)' : '';
-      });
-      requestAnimationFrame(updateDOF); return;
-    }
-    var maxBlur = p.dofMaxBlur;
-    var focusR = p.dofFocusRadius;
-    var screenCX = window.innerWidth / 2;
-    var screenCY = window.innerHeight / 2;
-
-    items.forEach(function (item) {
-      var depthBlur = parseFloat(item.style.getPropertyValue('--depth-blur')) || 0;
-      if (item.classList.contains('fixed-center')) { item.style.filter = ''; return; }
-      var rect = item.getBoundingClientRect();
-      var cx = rect.left + rect.width / 2;
-      var cy = rect.top + rect.height / 2;
-      var dx = cx - screenCX, dy = cy - screenCY;
-      var dist = Math.sqrt(dx * dx + dy * dy);
-      var dofBlur = Math.min(maxBlur, Math.max(0, (dist - focusR) / focusR * maxBlur));
-      var totalBlur = Math.round((dofBlur + depthBlur) * 2) / 2;
-      item.style.filter = totalBlur > 0 ? 'blur(' + totalBlur + 'px)' : '';
-    });
-    requestAnimationFrame(updateDOF);
-  }
-  requestAnimationFrame(updateDOF);
+  // --- Depth of Field (disabled — no blur on figures) ---
+  items.forEach(function (item) { item.style.filter = ''; });
 
   // --- PostFX animation loop ---
   var postFXTime = 0;

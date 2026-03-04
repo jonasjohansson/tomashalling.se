@@ -18,7 +18,7 @@
   z-index: 50;
 }
 
-.artwork-item:not(.name-letter):not(.fixed-center) {
+.artwork-item:not(.nav-creature):not(.fixed-center) {
   cursor: grab;
 }
 
@@ -28,30 +28,45 @@
 }
 
 @keyframes chaosSpin {
-  0% { transform: perspective(600px) rotateY(0deg) rotateX(0deg) scale(1); }
-  40% { transform: perspective(600px) rotateY(240deg) rotateX(15deg) scale(1.15); }
-  100% { transform: perspective(600px) rotateY(360deg) rotateX(0deg) scale(1); }
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+  100% { transform: scale(0); opacity: 0; }
 }
 
-/* Name letters — absolutely positioned, scattered across the artwork */
-.name-letter {
-  position: absolute;
-  animation: letterFloat var(--float-duration, 3s) ease-in-out var(--float-delay, 0s) infinite;
+/* Nav creature links */
+.nav-creature {
+  position: relative;
+  text-decoration: none;
+  display: block;
   z-index: 10;
 }
 
-@keyframes float {
-  0%, 100% { transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg); }
-  25% { transform: translate3d(0, calc(var(--float-y, -6px)), 0) rotateX(calc(var(--float-rx, 2deg))) rotateY(calc(var(--float-ry, -1deg))); }
-  50% { transform: translate3d(calc(var(--float-x, 3px)), calc(var(--float-y, -6px) * -0.5), 0) rotateX(calc(var(--float-rx, 2deg) * -1)) rotateY(calc(var(--float-ry, -1deg) * -1)); }
-  75% { transform: translate3d(calc(var(--float-x, 3px) * -1), calc(var(--float-y, -6px) * 0.3), 0) rotateX(calc(var(--float-rx, 2deg) * 0.5)) rotateY(calc(var(--float-ry, -1deg) * 0.7)); }
+.nav-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Finger Paint', cursive;
+  font-size: clamp(18px, 3vw, 34px);
+  color: #fff;
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  transition: color 0.3s ease;
+  text-transform: uppercase;
 }
 
-@keyframes letterFloat {
-  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
-  33% { transform: translate3d(calc(var(--float-x, 2px)), calc(var(--float-y, -8px)), 0) rotate(calc(var(--float-rot, 3deg))); }
-  66% { transform: translate3d(calc(var(--float-x, 2px) * -1), calc(var(--float-y, -8px) * 0.5), 0) rotate(calc(var(--float-rot, 3deg) * -1)); }
+.nav-creature:hover .nav-label {
+  color: #FFE066;
 }
+
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(0, calc(var(--float-y, -6px)), 0); }
+  50% { transform: translate3d(calc(var(--float-x, 3px)), calc(var(--float-y, -6px) * -0.5), 0); }
+  75% { transform: translate3d(calc(var(--float-x, 3px) * -1), calc(var(--float-y, -6px) * 0.3), 0); }
+}
+
 
 .artwork-item img,
 .artwork-item video,
