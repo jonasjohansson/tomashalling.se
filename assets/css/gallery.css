@@ -83,15 +83,9 @@
 
 .gallery-card {
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 3px;
   overflow: hidden;
   background: rgba(255,255,255,0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.gallery-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
 }
 
 .gallery-card img {

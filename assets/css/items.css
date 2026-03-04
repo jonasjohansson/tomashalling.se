@@ -14,6 +14,12 @@
   -webkit-touch-callout: none;
 }
 
+.artwork-item:not(.fixed-center) {
+  max-width: 50%;
+  max-height: 50%;
+  place-self: center;
+}
+
 .artwork-item:hover {
   z-index: 50;
 }
@@ -37,28 +43,26 @@
 .nav-creature {
   position: relative;
   text-decoration: none;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   z-index: 10;
 }
 
 .nav-label {
-  position: absolute;
-  bottom: 5%;
-  left: 50%;
-  transform: translateX(-50%);
   font-family: 'Finger Paint', cursive;
   font-size: clamp(16px, 2.5vw, 30px);
   color: #fff;
   white-space: nowrap;
   pointer-events: none;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-  transition: color 0.3s ease;
+  text-shadow: none;
   text-transform: uppercase;
 }
 
 [data-nav="cv"] .nav-label {
-  bottom: 25%;
+  margin-top: -15%;
 }
+
 
 
 .nav-creature:hover .nav-label {

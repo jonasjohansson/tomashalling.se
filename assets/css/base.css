@@ -1,7 +1,7 @@
 :root {
   --zoom: 1;
   --easing: 0.08;
-  --grid-size: 24;
+  --grid-size: 3;
 }
 
 html {

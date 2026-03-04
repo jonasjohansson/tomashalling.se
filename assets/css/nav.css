@@ -1,7 +1,7 @@
 /* Site title */
 .site-title {
   position: absolute;
-  top: 26vh;
+  top: 32dvh;
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
