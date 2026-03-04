@@ -31,29 +31,55 @@
 
   var FORESTALLNINGAR = [
     {
-      title: '2000 Mingua',
+      title: 'XgLosChO',
       images: [
-        'tomas-halling-2000-mingua-02-upscale.jpeg',
-        'tomas-halling-2000-mingua-03-upscale.jpeg',
-        'tomas-halling-2000-mingua-04-upscale.jpeg',
-        'tomas-halling-2000-mingua-05-upscale.jpeg',
-        'tomas-halling-2000-mingua-05b-upscale.jpeg',
-        'tomas-halling-2000-mingua-06-upscale.jpeg',
-        'tomas-halling-2000-mingua-07-upscale.jpeg',
-        'tomas-halling-2000-mingua-08-upscale.jpeg',
-        'tomas-halling-2000-mingua-10-upscale.jpeg',
-        'tomas-halling-2000-mingua-11-upscale.jpeg',
-        'tomas-halling-2000-mingua-12-upscale.jpeg',
-        'tomas-halling-2000-mingua-13-upscale.jpeg'
+        'tomas-halling-brainforest-upscale.jpeg',
+        'tomas-halling-cosmic-flowflower-upscale.jpeg',
+        'tomas-halling-dojxudong-jazzmunk-upscale.jpeg',
+        'tomas-halling-nebrusaläpp-upscale.jpeg',
+        'tomas-halling-oj-upscale.jpeg',
+        'tomas-halling-xgloscho-upscale.jpeg'
       ]
     },
     {
-      title: '2010 Gula Tuppen',
+      title: '2017 Brainforest',
       images: [
-        'tomas-halling-2010-gula-tuppen-biltvätten-upscale.jpeg',
-        'tomas-halling-2010-gula-tuppen-rymdälg-elker-melling-upscale.jpeg',
-        'tomas-halling-2010-gula-tuppen-sten-blåsäck-upscale.jpeg',
-        'tomas-halling-2010-gula-tuppen-tomas-fisk-upscale.jpeg'
+        'tomas-halling-2017-brainforest-20171231_201107-upscale.jpeg',
+        'tomas-halling-2017-brainforest-5809-upscale.jpeg',
+        'tomas-halling-2017-brainforest-5811-upscale.jpeg',
+        'tomas-halling-2017-brainforest-5814-upscale.jpeg',
+        'tomas-halling-2017-brainforest-5839-upscale.jpeg',
+        'tomas-halling-2017-brainforest-5850-upscale.jpeg',
+        'tomas-halling-2017-brainforest-5854-upscale.jpeg',
+        'tomas-halling-2017-brainforest-5886-upscale.jpeg',
+        'tomas-halling-2017-brainforest-5909-upscale.jpeg'
+      ]
+    },
+    {
+      title: '2014 Blurrfish',
+      images: [
+        'tomas-halling-2014-blurrfish-clango-spirojo-sprinklerbasunist-upscale.jpeg',
+        'tomas-halling-2014-blurrfish-clango-spirojo-upscale.jpeg',
+        'tomas-halling-2014-blurrfish-DSC08222-upscale.jpeg',
+        'tomas-halling-2014-blurrfish-DSC08229-upscale.jpeg',
+        'tomas-halling-2014-blurrfish-DSC08232-upscale.jpeg',
+        'tomas-halling-2014-blurrfish-DSC08240-upscale.jpeg',
+        'tomas-halling-2014-blurrfish-DSC08244-upscale.jpeg',
+        'tomas-halling-2014-blurrfish-DSC08246-upscale.jpeg',
+        'tomas-halling-2014-blurrfish-DSC08247-upscale.jpeg',
+        'tomas-halling-2014-blurrfish-DSC08248-upscale.jpeg',
+        'tomas-halling-2014-blurrfish-DSC08250-upscale.jpeg',
+        'tomas-halling-2014-blurrfish-gungus-upscale.jpeg',
+        'tomas-halling-2014-blurrfish-trattkungen-upscale.jpeg',
+        'tomas-halling-2014-blurrfish-trumset-upscale.jpeg',
+        'tomas-halling-2014-blurrfish-upscale.jpeg'
+      ]
+    },
+    {
+      title: '2012 Kosmisk allsång',
+      images: [
+        'tomas-halling-2012-kosmisk-allsång-atomic-mellowman-upscale.jpeg',
+        'tomas-halling-2012-kosmisk-allsång-spå-i-ägg-upscale.jpeg'
       ]
     },
     {
@@ -82,55 +108,29 @@
       ]
     },
     {
-      title: '2012 Kosmisk allsång',
+      title: '2010 Gula Tuppen',
       images: [
-        'tomas-halling-2012-kosmisk-allsång-atomic-mellowman-upscale.jpeg',
-        'tomas-halling-2012-kosmisk-allsång-spå-i-ägg-upscale.jpeg'
+        'tomas-halling-2010-gula-tuppen-biltvätten-upscale.jpeg',
+        'tomas-halling-2010-gula-tuppen-rymdälg-elker-melling-upscale.jpeg',
+        'tomas-halling-2010-gula-tuppen-sten-blåsäck-upscale.jpeg',
+        'tomas-halling-2010-gula-tuppen-tomas-fisk-upscale.jpeg'
       ]
     },
     {
-      title: '2014 Blurrfish',
+      title: '2000 Mingua',
       images: [
-        'tomas-halling-2014-blurrfish-clango-spirojo-sprinklerbasunist-upscale.jpeg',
-        'tomas-halling-2014-blurrfish-clango-spirojo-upscale.jpeg',
-        'tomas-halling-2014-blurrfish-DSC08222-upscale.jpeg',
-        'tomas-halling-2014-blurrfish-DSC08229-upscale.jpeg',
-        'tomas-halling-2014-blurrfish-DSC08232-upscale.jpeg',
-        'tomas-halling-2014-blurrfish-DSC08240-upscale.jpeg',
-        'tomas-halling-2014-blurrfish-DSC08244-upscale.jpeg',
-        'tomas-halling-2014-blurrfish-DSC08246-upscale.jpeg',
-        'tomas-halling-2014-blurrfish-DSC08247-upscale.jpeg',
-        'tomas-halling-2014-blurrfish-DSC08248-upscale.jpeg',
-        'tomas-halling-2014-blurrfish-DSC08250-upscale.jpeg',
-        'tomas-halling-2014-blurrfish-gungus-upscale.jpeg',
-        'tomas-halling-2014-blurrfish-trattkungen-upscale.jpeg',
-        'tomas-halling-2014-blurrfish-trumset-upscale.jpeg',
-        'tomas-halling-2014-blurrfish-upscale.jpeg'
-      ]
-    },
-    {
-      title: '2017 Brainforest',
-      images: [
-        'tomas-halling-2017-brainforest-20171231_201107-upscale.jpeg',
-        'tomas-halling-2017-brainforest-5809-upscale.jpeg',
-        'tomas-halling-2017-brainforest-5811-upscale.jpeg',
-        'tomas-halling-2017-brainforest-5814-upscale.jpeg',
-        'tomas-halling-2017-brainforest-5839-upscale.jpeg',
-        'tomas-halling-2017-brainforest-5850-upscale.jpeg',
-        'tomas-halling-2017-brainforest-5854-upscale.jpeg',
-        'tomas-halling-2017-brainforest-5886-upscale.jpeg',
-        'tomas-halling-2017-brainforest-5909-upscale.jpeg'
-      ]
-    },
-    {
-      title: 'XgLosChO',
-      images: [
-        'tomas-halling-brainforest-upscale.jpeg',
-        'tomas-halling-cosmic-flowflower-upscale.jpeg',
-        'tomas-halling-dojxudong-jazzmunk-upscale.jpeg',
-        'tomas-halling-nebrusaläpp-upscale.jpeg',
-        'tomas-halling-oj-upscale.jpeg',
-        'tomas-halling-xgloscho-upscale.jpeg'
+        'tomas-halling-2000-mingua-02-upscale.jpeg',
+        'tomas-halling-2000-mingua-03-upscale.jpeg',
+        'tomas-halling-2000-mingua-04-upscale.jpeg',
+        'tomas-halling-2000-mingua-05-upscale.jpeg',
+        'tomas-halling-2000-mingua-05b-upscale.jpeg',
+        'tomas-halling-2000-mingua-06-upscale.jpeg',
+        'tomas-halling-2000-mingua-07-upscale.jpeg',
+        'tomas-halling-2000-mingua-08-upscale.jpeg',
+        'tomas-halling-2000-mingua-10-upscale.jpeg',
+        'tomas-halling-2000-mingua-11-upscale.jpeg',
+        'tomas-halling-2000-mingua-12-upscale.jpeg',
+        'tomas-halling-2000-mingua-13-upscale.jpeg'
       ]
     }
   ];
@@ -142,7 +142,7 @@
   var lightboxCaption = document.getElementById('lightbox-caption');
   var lightboxClose = lightbox.querySelector('.lightbox-close');
 
-  var activeSection = 'malningar';
+  var activeSection = 'forestallningar';
 
   /* Extract human-readable title from filename */
   function parseTitle(filename) {
@@ -188,8 +188,8 @@
       buildGrid();
     });
 
-    tabs.appendChild(tabMalningar);
     tabs.appendChild(tabForest);
+    tabs.appendChild(tabMalningar);
     overlay.insertBefore(tabs, grid);
   }
 

@@ -61,7 +61,7 @@
       var source = ctx.createBufferSource();
       var gain = ctx.createGain();
       source.buffer = buf;
-      gain.gain.value = 0.5;
+      gain.gain.value = 0.4;
       source.connect(gain);
       gain.connect(ctx.destination);
       source.start(0);
